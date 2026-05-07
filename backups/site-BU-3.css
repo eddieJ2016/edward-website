@@ -1,0 +1,803 @@
+/* ==========================================================================
+   Edward Radford — site.css (cleaned + conflict-free)
+   Mosaic tiles + spill-down drawers (adaptive columns + press-wide)
+   ========================================================================== */
+
+:root{
+  --bg: #0e0f12;
+  --ink: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --faint: rgba(255,255,255,.45);
+
+  --line: rgba(255,255,255,.10);
+  --lineSoft: rgba(255,255,255,.06);
+  --glow: rgba(255,255,255,.18);
+
+  --radius: 18px;
+  --tileRadius: 2px;
+
+  /* Divider fade */
+  --ruleA: rgba(255,255,255,.06);
+  --ruleB: rgba(255,255,255,0);
+}
+
+@font-face{
+  font-family: "Satoshi";
+  src: url("assets/fonts/Satoshi-Light.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "General Sans";
+  src: url("assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Base */
+html, body{
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body{
+  margin: 0;
+  padding: 18px;   /* matches the frame inset */
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  letter-spacing: .01em;
+}
+
+body::after{
+  content:"";
+  position: fixed;
+  inset: 18px;
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 9999;
+
+  /* matte outside the frame */
+  box-shadow: 0 0 0 9999px var(--bg);
+
+  /* the frame line */
+  border: 0px solid rgba(255,255,255,.06);
+
+  box-shadow:
+  0 0 0 9999px var(--bg),                 /* matte */
+  inset 0 0 0 1px rgba(255,255,255,.06),  /* inner highlight */
+  inset 0 0 0 2px rgba(0,0,0,.35);        /* subtle depth */  
+
+
+}
+
+
+.hero-title{
+  font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: .03em;
+  line-height: 1.05;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================================
+   Mosaic grid
+   ========================================================================= */
+
+.mosaic{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 30px;  /* instead of 46px 48px */
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Tile */
+.tile{
+  position: relative;
+  display: block;
+  border-radius: var(--tileRadius);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+
+  background: #111;
+  border: 1px solid rgba(255,255,255,.08);
+  aspect-ratio: 2 / 1;
+
+  /* No “breathing” on hover */
+  transform: none;
+  transition: border-color 180ms ease;
+}
+
+.tile:hover{
+  border-color: rgba(255,255,255,.16);
+}
+
+/* Open tile glow */
+.tile[aria-expanded="true"]{
+  border-color: rgba(255,255,255,.32);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.18),
+    0 0 26px var(--glow),
+    0 22px 70px rgba(0,0,0,.62);
+}
+
+.tile:focus-visible{
+  outline: 2px solid rgba(255,255,255,.60);
+  outline-offset: 3px;
+}
+
+/* Background image */
+.tile-img{
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/mosaic-1.gif");
+  background-size: cover;
+  background-position: center;
+
+  /* Neutral (equivalent to filter:none) */
+  filter: saturate(1) contrast(1);
+  transform: none;
+}
+
+/* Optional overlay (OFF — you’re baking this into GIFs) */
+.tile-shade{ display: none; }
+
+/* Tile text overlay (OFF for now) */
+.tile-meta{ display: none; }
+
+/* =========================================================================
+   Drawer (spill-down)
+   ========================================================================= */
+
+.drawer{
+  grid-column: 1 / -1;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+  overflow: hidden;
+
+  /* animated open/close */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 280ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.drawer.is-open{
+  max-height: 1400px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keep drawer-inner as a block so the title doesn’t become a “column” */
+.drawer-inner{
+  display: block;
+  padding: 18px 18px 16px;
+  position: relative;
+}
+
+.drawer-title{
+  font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 650;     /* weight (400 normal, 600 semibold, 700 bold) */
+  letter-spacing: .015em;
+  text-shadow: 0 0 18px rgba(255,255,255,.10);
+  /* text-transform: uppercase; */
+}
+
+/* Drawer columns (adaptive) */
+.drawer-cols{
+  display: grid;
+  gap: 12px 14px;
+}
+
+.drawer-cols.cols-1{ grid-template-columns: 1fr; }
+.drawer-cols.cols-2{ grid-template-columns: 0.9fr 1.1fr; }
+.drawer-cols.cols-3{ grid-template-columns: 0.9fr 1.2fr 1fr; }
+
+/* Make the 3 columns feel like ONE surface */
+.drawer-panel{
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 6px 0 0;
+}
+
+.panel-title{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.50);
+  margin-bottom: 8px;
+}
+
+/* Subtle column dividers (desktop only) */
+@media (min-width: 901px){
+  .drawer-cols{ gap: 0; }
+
+  .drawer-panel{
+    padding: 6px 16px 0;
+  }
+
+  .drawer-panel + .drawer-panel{
+    border-left: 1px solid rgba(255,255,255,.10);
+  }
+
+  .drawer-panel:first-child{ padding-left: 0; }
+  .drawer-panel:last-child{ padding-right: 0; }
+}
+
+/* =========================================================================
+   Left meta + broadcaster logos
+   ========================================================================= */
+
+.meta-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.broadcaster-logos{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.broadcaster-logo{
+  display: block;
+  height: 35px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  opacity: .92;
+}
+
+.meta-row{
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: rgba(255,255,255,.80);
+  font-size: 14px;
+}
+
+.meta-item{
+  color: rgba(255,255,255,.88);
+  font-size: 14px;
+}
+
+.meta-dot{
+  color: rgba(255,255,255,.35);
+}
+
+/* =========================================================================
+   Credits
+   ========================================================================= */
+
+.credits{
+  margin-top: 12px;
+  padding-top: 0px;
+  border-top: 0;
+}
+
+.credit{ margin-top: 10px; }
+
+.credit-k{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.50);
+  margin-bottom: 4px;
+}
+
+.credit-v{
+  font-size: 14px;
+  line-height: 1.35;
+  color: rgba(255,255,255,.90);
+}
+
+.credit-v .credit-line{
+  margin: 2px 0;
+  line-height: 1.2;
+}
+.credit-v .credit-line:first-child{ margin-top: 0; }
+
+/* =========================================================================
+   Awards / Press lists
+   ========================================================================= */
+
+.drawer-list{
+  margin: 6px 0 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Remove any legacy borders */
+.drawer-list li{ border-top: 0 !important; }
+
+/* Gradient divider (top-level items only) */
+.drawer-list > li{
+  position: relative;
+  padding: 10px 0;
+}
+
+.drawer-list > li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--ruleA) 0%, var(--ruleA) 55%, var(--ruleB) 100%);
+  opacity: 0;
+}
+
+/* Normal lists: show divider on every item except first */
+.drawer-list > li:not(:first-child)::before{
+  opacity: 1;
+}
+.drawer-list > li:first-child{
+  padding-top: 2px;
+}
+
+.list-top{
+  color: rgba(255,255,255,.92);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.list-sub{
+  color: rgba(255,255,255,.65);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+/* Links: underline wipe */
+.drawer-link{
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.drawer-link .list-top{
+  display: inline;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 260ms ease;
+  padding-bottom: 2px;
+}
+
+.drawer-link:hover .list-top,
+.drawer-link:focus-visible .list-top{
+  background-size: 100% 1px;
+}
+
+.drawer-empty{
+  color: rgba(255,255,255,.65);
+  padding-top: 4px;
+}
+
+/* Awards: nested list (no dividers) */
+.sublist{
+  margin: 4px 0 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.sublist li{
+  margin: 3px 0;
+  color: rgba(255,255,255,.70);
+  line-height: 1.15;
+}
+
+/* Ensure nested awards never get dividers */
+.sublist li::before{ display: none !important; }
+
+/* Festival vs award sizing */
+.drawer-list > li .list-top{ font-size: 14px; }
+.sublist li{ font-size: 13px; }
+
+/* =========================================================================
+   Press-wide (no awards, lots of press)
+   - Press panel spans two columns
+   - Press list becomes true 2-column grid
+   - Dividers start from row 2 (items 3+) to avoid “widow” line
+   ========================================================================= */
+
+@media (min-width: 901px){
+  .drawer-cols.press-wide-layout .press-panel.press-wide{
+    grid-column: 2 / -1;
+  }
+
+  .press-panel.press-wide .drawer-list{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  /* Turn off normal dividers in press-wide... */
+  .press-panel.press-wide .drawer-list > li::before{ opacity: 0; }
+
+  /* ...and turn on from row 2 (items 3+) */
+  .press-panel.press-wide .drawer-list > li:nth-child(n + 3)::before{ opacity: 1; }
+}
+
+/* =========================================================================
+   Drawer footer / close
+   ========================================================================= */
+
+.drawer-footer{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-close{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+  letter-spacing: .12em;
+  cursor: pointer;
+}
+
+.drawer-close:hover{ color: rgba(255,255,255,.92); }
+
+.drawer-close:focus-visible{
+  outline: 2px solid rgba(255,255,255,.55);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* =========================================================================
+   Drawer content reveal (filmic stagger) + scanner light pass
+   ========================================================================= */
+
+.drawer .drawer-title,
+.drawer .drawer-panel,
+.drawer .drawer-actions{
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.drawer.is-open .drawer-title{
+  animation: riseFade 340ms ease-out 40ms forwards;
+}
+
+.drawer.is-open .drawer-panel:nth-child(1){ animation: riseFade 360ms ease-out 90ms forwards; }
+.drawer.is-open .drawer-panel:nth-child(2){ animation: riseFade 360ms ease-out 140ms forwards; }
+.drawer.is-open .drawer-panel:nth-child(3){ animation: riseFade 360ms ease-out 190ms forwards; }
+
+.drawer.is-open .drawer-actions{ animation: riseFade 360ms ease-out 240ms forwards; }
+
+.drawer.is-open .drawer-list > li{
+  opacity: 0;
+  transform: translateY(8px);
+  animation: riseFade 360ms ease-out forwards;
+}
+
+/* Cascade delays (first ~10 items) */
+.drawer.is-open .drawer-list > li:nth-child(1){ animation-delay: 180ms; }
+.drawer.is-open .drawer-list > li:nth-child(2){ animation-delay: 210ms; }
+.drawer.is-open .drawer-list > li:nth-child(3){ animation-delay: 240ms; }
+.drawer.is-open .drawer-list > li:nth-child(4){ animation-delay: 270ms; }
+.drawer.is-open .drawer-list > li:nth-child(5){ animation-delay: 300ms; }
+.drawer.is-open .drawer-list > li:nth-child(6){ animation-delay: 330ms; }
+.drawer.is-open .drawer-list > li:nth-child(7){ animation-delay: 360ms; }
+.drawer.is-open .drawer-list > li:nth-child(8){ animation-delay: 390ms; }
+.drawer.is-open .drawer-list > li:nth-child(9){ animation-delay: 420ms; }
+.drawer.is-open .drawer-list > li:nth-child(10){ animation-delay: 450ms; }
+
+@keyframes riseFade{
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scanner pass */
+.drawer{ position: relative; }
+
+.drawer::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,.00) 35%,
+    rgba(255,255,255,.10) 46%,
+    rgba(255,255,255,.00) 58%,
+    transparent 100%
+  );
+  transform: translateX(-60%) skewX(-12deg);
+  opacity: 0;
+}
+
+.drawer.is-open::before{
+  opacity: 1;
+  animation: scannerPass 720ms ease-out 60ms forwards;
+}
+
+@keyframes scannerPass{
+  0%   { transform: translateX(-60%) skewX(-12deg); opacity: 0; }
+  15%  { opacity: .65; }
+  70%  { opacity: .35; }
+  100% { transform: translateX(60%) skewX(-12deg); opacity: 0; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .drawer *{ animation: none !important; transition: none !important; }
+  .drawer .drawer-title,
+  .drawer .drawer-panel,
+  .drawer .drawer-actions{ opacity: 1; transform: none; }
+  .drawer::before{ display: none; }
+}
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+
+@media (max-width: 900px){
+  .mosaic{
+    grid-template-columns: repeat(2, 1fr);
+    padding: 38px 28px;
+  }
+
+  /* stack drawer cols on mobile */
+  .drawer-cols{ grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 520px){
+  .mosaic{
+    grid-template-columns: 1fr;
+    padding: 30px 18px;
+  }
+}
+
+/* Smooth anchor scroll */
+html{ scroll-behavior: smooth; }
+
+/* Keep anchor targets from hiding under sticky header */
+#work, #about, #contact{ scroll-margin-top: 92px; }
+
+/* Make sure the inset frame stays “above” everything */
+body::before{ z-index: 50; }
+
+/* Page wrapper to align hero + mosaic + sections */
+.page{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Sticky header */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  padding: 12px 0;
+  margin-bottom: 8px;
+
+  background: rgba(14,15,18,.70);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 0px solid rgba(255,255,255,.06);
+  border-radius: 18px;
+
+  max-width: 1100px;
+  margin: 0 auto 8px;   /* center + keep your little gap */
+  width: 100%;
+
+    border-radius: 0;
+  /* optional: if you want it even cleaner */
+  border-left: 0;
+  border-right: 0;
+
+}
+
+.site-header__inner{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 14px;
+}
+
+.wordmark{
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+
+.site-nav{
+  display: flex;
+  gap: 14px;
+}
+
+.site-nav a{
+  color: rgba(255,255,255,.72);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: .04em;
+  padding: 6px 6px;
+  border-radius: 10px;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible{
+  color: rgba(255,255,255,.92);
+  outline: none;
+  background: rgba(255,255,255,.06);
+}
+
+
+.site-nav a{
+  position: relative;
+}
+
+.site-nav a.is-active::after{
+  content:"";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 3px;
+  height: 1px;
+  background: rgba(255,255,255,.35);
+}
+
+
+/* Slim hero */
+.hero{
+  padding: 18px 0 10px;
+}
+
+.hero-title{
+  margin: 0 0 8px;
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: .015em;
+}
+
+.hero-sub{
+  margin: 0;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: .02em;
+  
+}
+
+
+/* About/Contact sections */
+.section{
+  padding: 34px 0 18px;
+  padding: 34px 0 22px; /* consistent section spacing */
+}
+
+.section-title{
+  margin: 0 0 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.55);
+}
+
+.section-body{
+  margin: 0;
+  color: rgba(255,255,255,.78);
+  line-height: 1.6;
+  max-width: 100ch;
+}
+
+#contact.section{
+  margin-top: 18px;
+}
+
+/* Make your existing mosaic padding play nicely under the hero */
+.mosaic{
+  padding: 18px 0 10px;
+}
+
+/* Mobile */
+@media (max-width: 520px){
+  .site-header__inner{ flex-direction: column; gap: 10px; align-items: flex-start; }
+  .site-nav{ gap: 10px; }
+}
+
+.about-columns{
+  column-count: 2;
+  column-gap: 44px;
+}
+
+.about-columns .section-body{
+  max-width: none;              /* let it use the column width */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-top: 12px;
+}
+
+.about-columns .section-body:first-child{
+  margin-top: 0;
+}
+
+/* Back to single column on smaller screens */
+@media (max-width: 900px){
+  .about-columns{ column-count: 1; }
+}
+
+.about-columns .section-body + .section-body{
+  margin-top: 12px;
+}
+
+.boast{
+  padding: 18px 0 6px;
+  margin-top: 6px;
+  margin-bottom: 34px;
+}
+
+.logo-strip{
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 0;
+  align-items: center;
+
+  color: rgba(255,255,255,.72);
+  font-size: 13px;
+  letter-spacing: .03em;
+}
+
+.logo-strip li{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* dot separators */
+.logo-strip li + li::before{
+  content: "\00B7"; /* middle dot */
+  color: rgba(255,255,255,.28);
+  margin: 0 12px;
+}
+
+
+/* Use Satoshi for UI/headings only (keep body copy as-is) */
+.section-title,
+.panel-title,
+.credit-k,
+.site-nav a{
+  font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  letter-spacing: .08em; /* matches your title-card vibe */
+}
+
+.site-nav a{
+  letter-spacing: .06em; /* slightly less than section labels */
+  font-weight: 650;
+}
+
+
+/* Per-logo size modifiers */
+.broadcaster-logo.logo--xs{ height: 22px; max-width: 100px; }
+.broadcaster-logo.logo--sm{ height: 26px; max-width: 120px; }
+.broadcaster-logo.logo--lg{ height: 40px; max-width: 200px; }

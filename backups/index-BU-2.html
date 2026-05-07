@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edward Radford</title>
+  <link rel="stylesheet" href="site.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" id="work">
+      <h1 class="hero-title">Edward Radford</h1>
+      <p class="hero-sub">Documentary &amp; branded-content producer — New York.</p>
+      <p class="hero-sub">Selected work for film, television, and brands.</p>
+    </section>
+
+    <section class="mosaic" id="mosaic"></section>
+
+    <section class="section" id="about">
+      <h2 class="section-title">About</h2>
+
+      <div class="about-columns">
+   <p class="section-body">
+  Edward Radford is an award-winning documentary and branded-content producer based in New York City.
+  Most recently, his creative for Bloomberg Media Studios was recognized by the Financial Communications Society with its Gold Award for Best Branded Content.
+</p>
+
+<p class="section-body" style="margin-top:12px;">
+  He produced <em>BLACK AS U R</em> (Executive Producer: Billy Porter), Micheal Rice’s kaleidoscopic journey through the fault lines of race, gender and sexuality in America.
+  The film received, among other honours, the Out in the Silence Award at Frameline 46, the Panavision Award for Outstanding Feature at the 4th Micheaux Film Festival, and the Chevrolet Changemaker Award at the 34th NewFest Film Festival.
+</p>
+
+<p class="section-body" style="margin-top:12px;">
+  His previous feature documentary, <em>Party Boi: Black Diamonds in Ice Castles</em> (Director: Micheal Rice), was honoured with the Programmers’ Award for Best Documentary Feature at the 28th Pan-African Arts &amp; Film Festival, as well as a Mayoral Citation from the City of Baltimore.
+</p>
+
+<p class="section-body" style="margin-top:12px;">
+  Prior to focusing on producing, he was one of London’s first-call editors and a sought-after director of photography.
+  He edited the BBC4 <em>Storyville</em> feature documentaries <em>Black Beach</em> and <em>Mad Dog</em> (Director: Christopher Olgiati).
+  <em>Endgames of a Psychopath</em> (Channel 4, Director: Paddy Wivell), which he both photographed and edited, received a five-star review from <em>The Times</em>.
+</p>
+</div>
+    </section>
+
+    <section class="section" id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-body">
+        <!-- placeholder: email / reps / links -->
+      </p>
+    </section>
+  </main>
+
+  <script src="mosaic.js"></script>
+
+<script>
+  (() => {
+    const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+
+    if (!navLinks.length) return;
+
+    // Force scroll on click (works even if default anchor is blocked)
+    navLinks.forEach(a => {
+      a.addEventListener("click", (e) => {
+        const sel = a.getAttribute("href");
+        const target = document.querySelector(sel);
+        if (!target) return;
+
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, "", sel);
+      });
+    });
+
+    // Active-state highlighting
+    const setActive = (id) => {
+      navLinks.forEach(a => a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`));
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActive(visible.target.id);
+    }, {
+      threshold: [0.15, 0.25, 0.4, 0.6],
+      rootMargin: "-20% 0px -65% 0px"
+    });
+
+    sections.forEach(s => io.observe(s));
+    if (sections[0]) setActive(sections[0].id);
+  })();
+</script>
+
+
+</body>
+</html>

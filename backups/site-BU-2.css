@@ -1,0 +1,803 @@
+/* ==========================================================================
+   Edward Radford — site.css (cleaned / deduped)
+   - Mosaic tiles + spill-down drawer
+   - 3-column drawer: meta / awards / press
+   ========================================================================== */
+
+:root{
+  --bg: #0e0f12;
+  --ink: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --faint: rgba(255,255,255,.45);
+  --line: rgba(255,255,255,.12);
+  --glow: rgba(255,255,255,.18);
+  --radius: 14px;
+  --radius2: 18px;
+}
+
+/* Base */
+html, body{
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  letter-spacing: .01em;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 18px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+/* Optional wrapper if you use it */
+.wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 18px;
+}
+
+/* ==========================================================================
+   Mosaic
+   ========================================================================== */
+
+.mosaic{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 46px 48px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Tile */
+.tile{
+  position: relative;
+  display: block;
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+
+  background: #111;
+  border: 1px solid rgba(255,255,255,.08);
+
+  /* Smaller tiles: tweak aspect ratio if you want taller (e.g. 16/9) */
+  aspect-ratio: 2 / 1;
+
+  transform: translateY(0);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    filter 180ms ease;
+}
+
+.tile:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.16);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+/* Open tile glow */
+.tile[aria-expanded="true"]{
+  border-color: rgba(255,255,255,.32);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.18),
+    0 0 26px var(--glow),
+    0 22px 70px rgba(0,0,0,.62);
+}
+
+.tile:focus-visible{
+  outline: 2px solid rgba(255,255,255,.60);
+  outline-offset: 3px;
+}
+
+/* Background image */
+.tile-img{
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/mosaic-1.gif");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+  filter: saturate(1.1) contrast(1.5);
+}
+
+/* Filmic shading */
+.tile-shade{
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 260px at 30% 20%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.86));
+}
+
+/* Title block */
+.tile-meta{
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+}
+
+.tile-meta h3{
+  margin: 0 0 4px;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: .01em;
+}
+
+.tile-meta p{
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Drawer (spill-down)
+   ========================================================================== */
+
+.drawer{
+  grid-column: 1 / -1;
+  border-radius: var(--radius2);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+  overflow: hidden;
+
+  /* animated open/close */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 280ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.drawer.is-open{
+  max-height: 1200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* IMPORTANT: keep drawer-inner as a block so the title doesn't become "column 1" */
+.drawer-inner{
+  display: block;
+  padding: 18px 18px 16px;
+  position: relative;
+}
+
+.drawer-title{
+  margin: 0 0 12px;
+  font-size: 18px;
+  letter-spacing: .01em;
+}
+
+/* 3-column layout inside drawer */
+.drawer-cols{
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr 1.0fr;
+  gap: 12px 14px;
+}
+
+.drawer-panel{
+  border: 1px solid rgba(255,255,255,.06); /* lighter */
+  background: rgba(255,255,255,.02);       /* almost nothing */
+  border-radius: 10px;                      /* tighter */
+  padding: 10px 12px 8px;
+}
+
+.panel-title{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.50);
+  margin-bottom: 8px;
+}
+
+/* Left column kv */
+.kv{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px 12px;
+}
+.kv .k{ color: rgba(255,255,255,.55); font-size: 13px; }
+.kv .v{ color: rgba(255,255,255,.90); font-size: 14px; }
+
+/* Awards / Press lists */
+.drawer-list{
+  margin: 6px 0 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.drawer-list li{
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.drawer-list li:first-child{
+  border-top: 0;
+  padding-top: 2px;
+}
+
+.list-top{
+  color: rgba(255,255,255,.92);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.list-sub{
+  color: rgba(255,255,255,.65);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.drawer-link{
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.drawer-link:hover .list-top{
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.drawer-empty{
+  color: rgba(255,255,255,.65);
+  padding-top: 4px;
+}
+
+/* Actions */
+.drawer-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  text-decoration: none;
+
+  background: rgba(255,255,255,.92);
+  color: #111;
+  border: 1px solid rgba(255,255,255,.20);
+
+  transition: transform 160ms ease, opacity 160ms ease, background 160ms ease;
+  cursor: pointer;
+}
+
+.btn:hover{ transform: translateY(-1px); }
+
+.btn.ghost{
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid rgba(255,255,255,.22);
+}
+
+.btn.ghost:hover{
+  background: rgba(255,255,255,.06);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px){
+  .mosaic{
+    grid-template-columns: repeat(2, 1fr);
+    padding: 38px 28px;
+  }
+  .drawer-cols{ grid-template-columns: 1fr; }
+  .kv{ grid-template-columns: 110px 1fr; }
+}
+
+@media (max-width: 520px){
+  .mosaic{
+    grid-template-columns: 1fr;
+    padding: 30px 18px;
+  }
+}
+
+/* Make the 3 columns feel like ONE surface */
+.drawer-panel{
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 6px 0 0;
+}
+
+/* Add subtle column dividers (desktop only) */
+@media (min-width: 901px){
+  .drawer-cols{
+    gap: 0; /* so dividers feel continuous */
+  }
+
+  .drawer-panel{
+    padding: 6px 16px 0;
+  }
+
+  .drawer-panel + .drawer-panel{
+    border-left: 1px solid rgba(255,255,255,.10);
+  }
+
+  /* keep edges nice */
+  .drawer-panel:first-child{ padding-left: 0; }
+  .drawer-panel:last-child{ padding-right: 0; }
+}
+
+/* ===== Drawer content reveal (filmic stagger) ===== */
+
+.drawer .drawer-title,
+.drawer .drawer-panel,
+.drawer .drawer-actions{
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.drawer.is-open .drawer-title{
+  animation: riseFade 340ms ease-out 40ms forwards;
+}
+
+.drawer.is-open .drawer-panel:nth-child(1){
+  animation: riseFade 360ms ease-out 90ms forwards;
+}
+.drawer.is-open .drawer-panel:nth-child(2){
+  animation: riseFade 360ms ease-out 140ms forwards;
+}
+.drawer.is-open .drawer-panel:nth-child(3){
+  animation: riseFade 360ms ease-out 190ms forwards;
+}
+
+.drawer.is-open .drawer-actions{
+  animation: riseFade 360ms ease-out 240ms forwards;
+}
+
+/* Stagger list items inside awards/press */
+.drawer.is-open .drawer-list li{
+  opacity: 0;
+  transform: translateY(8px);
+  animation: riseFade 360ms ease-out forwards;
+}
+
+/* Cascade delays (first ~10 items) */
+.drawer.is-open .drawer-list li:nth-child(1){ animation-delay: 180ms; }
+.drawer.is-open .drawer-list li:nth-child(2){ animation-delay: 210ms; }
+.drawer.is-open .drawer-list li:nth-child(3){ animation-delay: 240ms; }
+.drawer.is-open .drawer-list li:nth-child(4){ animation-delay: 270ms; }
+.drawer.is-open .drawer-list li:nth-child(5){ animation-delay: 300ms; }
+.drawer.is-open .drawer-list li:nth-child(6){ animation-delay: 330ms; }
+.drawer.is-open .drawer-list li:nth-child(7){ animation-delay: 360ms; }
+.drawer.is-open .drawer-list li:nth-child(8){ animation-delay: 390ms; }
+.drawer.is-open .drawer-list li:nth-child(9){ animation-delay: 420ms; }
+.drawer.is-open .drawer-list li:nth-child(10){ animation-delay: 450ms; }
+
+@keyframes riseFade{
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .drawer *{ animation: none !important; transition: none !important; }
+  .drawer .drawer-title,
+  .drawer .drawer-panel,
+  .drawer .drawer-actions{ opacity: 1; transform: none; }
+}
+
+
+/* Hide tile text overlay (we’ll rely on hover reveal later) */
+.tile-meta{
+  display: none;
+}
+
+
+
+
+/* ===== Scanner light pass (subtle) ===== */
+
+.drawer{
+  position: relative; /* so ::before is anchored */
+}
+
+.drawer::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* A soft diagonal light band */
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,.00) 35%,
+    rgba(255,255,255,.10) 46%,
+    rgba(255,255,255,.00) 58%,
+    transparent 100%
+  );
+
+  transform: translateX(-60%) skewX(-12deg);
+  opacity: 0;
+}
+
+/* Trigger once when opening */
+.drawer.is-open::before{
+  opacity: 1;
+  animation: scannerPass 720ms ease-out 60ms forwards;
+}
+
+@keyframes scannerPass{
+  0%   { transform: translateX(-60%) skewX(-12deg); opacity: 0; }
+  15%  { opacity: .65; }
+  70%  { opacity: .35; }
+  100% { transform: translateX(60%) skewX(-12deg); opacity: 0; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .drawer::before{ display: none; }
+}
+
+credits{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+
+.credit{
+  margin-top: 10px;
+}
+
+.credit-k{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.50);
+  margin-bottom: 4px;
+}
+
+.credit-v{
+  font-size: 14px;
+  line-height: 1.35;
+  color: rgba(255,255,255,.90);
+}
+
+
+.drawer-footer{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end; /* far right */
+}
+
+.drawer-close{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+  letter-spacing: .12em;
+  cursor: pointer;
+}
+
+.drawer-close:hover{
+  color: rgba(255,255,255,.92);
+}
+
+.drawer-close:focus-visible{
+  outline: 2px solid rgba(255,255,255,.55);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sublist{
+  margin: 6px 0 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.sublist li{
+  margin: 6px 0;
+  color: rgba(255,255,255,.70);
+}
+
+/* Keep separators between FESTIVALS only */
+.drawer-list > li{
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 10px 0;
+}
+.drawer-list > li:first-child{
+  border-top: 0;
+  padding-top: 2px;
+}
+
+/* No separators for nested awards */
+.drawer-list .sublist{
+  margin: 4px 0 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.drawer-list .sublist li{
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 3px 0;
+  color: rgba(255,255,255,.70);
+  line-height: 1.15;        /* tighter */
+}
+
+/* Ensure festival > award sizing hierarchy is consistent */
+.drawer-list > li .list-top{
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.drawer-list .sublist li{
+  font-size: 13px;   /* slightly smaller than festival */
+  line-height: 1.25;
+}
+
+/* Adaptive drawer columns */
+.drawer-cols.cols-1{ grid-template-columns: 1fr; }
+.drawer-cols.cols-2{ grid-template-columns: 0.9fr 1.1fr; }
+.drawer-cols.cols-3{ grid-template-columns: 0.9fr 1.2fr 1fr; }
+
+/* Mobile still stacks */
+@media (max-width: 900px){
+  .drawer-cols.cols-2,
+  .drawer-cols.cols-3{ grid-template-columns: 1fr; }
+}
+
+.credit-v .credit-line{
+  margin: 2px 0;     /* tighten/loosen as you like */
+  line-height: 1.2;
+}
+
+.credit-v .credit-line:first-child{
+  margin-top: 0;
+}
+
+.meta-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meta-row{
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: rgba(255,255,255,.80);
+  font-size: 14px;
+}
+
+.meta-item{
+  color: rgba(255,255,255,.88);
+  font-size: 14px;
+}
+
+.meta-dot{
+  color: rgba(255,255,255,.35);
+}
+
+.broadcaster-logo{
+  height: 40px;          /* tweak per your logos */
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  opacity: .92;
+}
+
+
+.tile-shade{ display: none; }
+
+.meta-stack{
+  align-items: flex-start; /* left-align children, including the logo */
+}
+
+.broadcaster-logos{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;   /* so it won’t break on small screens */
+}
+
+.broadcaster-logo{
+  display: block;
+  height: 35px;      /* your existing control */
+  width: auto;
+  max-width: 160px;  /* per-logo cap when multiple */
+  object-fit: contain;
+}
+
+/* If awards are absent and press is "wide", let press span 2 columns */
+@media (min-width: 901px){
+  .drawer-cols.press-wide-layout .press-panel.press-wide{
+    grid-column: 2 / -1;
+  }
+}
+
+/* Override any older drawer-inner grid rules */
+.drawer-inner{
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+}
+
+/* 1) Make the Press panel span 2 grid columns (desktop) */
+@media (min-width: 901px){
+  .drawer-cols.press-wide-layout .press-panel.press-wide{
+    grid-column: 2 / -1;
+  }
+
+  /* 2) Split the press list into 2 columns when "wide" */
+  .press-panel.press-wide .drawer-list{
+    column-count: 2;
+    column-gap: 28px;
+  }
+
+  /* Keep each press item intact within a column */
+  .press-panel.press-wide .drawer-list li{
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+  }
+}
+
+@media (min-width: 901px){
+  /* press panel spans 2 outer columns */
+  .drawer-cols.press-wide-layout .press-panel.press-wide{
+    grid-column: 2 / -1;
+  }
+
+  /* use a REAL 2-column grid for press items */
+  .press-panel.press-wide .drawer-list{
+    column-count: initial;          /* undo column layout if previously set */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  /* remove default divider everywhere in this grid */
+  .press-panel.press-wide .drawer-list > li{
+    border-top: 0 !important;
+    padding-top: 2px;
+  }
+
+  /* add dividers starting on row 2 (items 3+) */
+  .press-panel.press-wide .drawer-list > li:nth-child(n + 3){
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+    padding-top: 10px;
+  }
+}
+
+/* Gradient divider line that fades on the right */
+.drawer-list > li{
+  position: relative;
+  border-top: 0 !important;   /* kill any existing solid borders */
+}
+
+.drawer-list > li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+
+  /* solid on left, fades on right */
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,.045) 0%,
+    rgba(255,255,255,.05) 50%,
+    rgba(255,255,255,0) 100%
+  );
+
+  opacity: 0; /* off by default; enabled below */
+}
+
+/* Normal lists: show divider on every item except first */
+.drawer-list > li:not(:first-child)::before{
+  opacity: 1;
+}
+
+/* Press-wide grid: dividers start from row 2 (items 3+) */
+@media (min-width: 901px){
+  .press-panel.press-wide .drawer-list > li::before{ opacity: 0 !important; }
+  .press-panel.press-wide .drawer-list > li:nth-child(n + 3)::before{ opacity: 1 !important; }
+}
+
+@media (min-width: 901px){
+
+  /* PRESS-WIDE: never use solid borders */
+  .press-panel.press-wide .drawer-list > li{
+    border-top: 0 !important;
+  }
+
+  /* Turn OFF the gradient divider by default in press-wide... */
+  .press-panel.press-wide .drawer-list > li::before{
+    opacity: 0 !important;
+  }
+
+  /* ...and turn it ON starting from row 2 (items 3+) */
+  .press-panel.press-wide .drawer-list > li:nth-child(n + 3)::before{
+    opacity: 1 !important;
+
+    /* match your fade rule (tweak values if you like) */
+    background: linear-gradient(
+      to right,
+        rgba(255,255,255,.045) 0%,
+        rgba(255,255,255,.05) 50%,
+        rgba(255,255,255,0) 100%
+    );
+  }
+}
+
+/* =========================================================
+   Divider lines (fade-out) — works for normal + press-wide
+   Paste at VERY BOTTOM of site.css
+   ========================================================= */
+
+/* Kill all solid borders (older rules) */
+.drawer-list li{
+  border-top: 0 !important;
+}
+
+/* Gradient divider on top-level items only */
+.drawer-list > li{
+  position: relative;
+}
+
+.drawer-list > li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,.06) 0%,
+    rgba(255,255,255,.06) 70%,
+    rgba(255,255,255,0) 100%
+  );
+  opacity: 0; /* off by default */
+}
+
+/* Normal lists: divider shows except first item */
+.drawer-list > li:not(:first-child)::before{
+  opacity: 1;
+}
+
+/* ---- PRESS-WIDE special case ---- */
+@media (min-width: 901px){
+  /* Make press list truly 2 columns (grid) */
+  .press-panel.press-wide .drawer-list{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  /* Prevent dividers at top of column 2: only show from row 2 (items 3+) */
+  .press-panel.press-wide .drawer-list > li::before{
+    opacity: 0 !important;
+  }
+  .press-panel.press-wide .drawer-list > li:nth-child(n + 3)::before{
+    opacity: 1 !important;
+  }
+}
