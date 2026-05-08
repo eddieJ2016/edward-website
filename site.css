@@ -140,6 +140,38 @@
 }
 
 /* -----------------------------
+   Founders Grotesk (Klim, licensed) — production hero face
+   ----------------------------- */
+@font-face{
+  font-family: "Founders Grotesk";
+  src: url("assets/fonts/founders-grotesk-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Founders Grotesk";
+  src: url("assets/fonts/founders-grotesk-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Founders Grotesk";
+  src: url("assets/fonts/founders-grotesk-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Founders Grotesk";
+  src: url("assets/fonts/founders-grotesk-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* -----------------------------
    Fonts (self-hosted, variable WOFF2)
    ----------------------------- */
 @font-face{
@@ -303,9 +335,7 @@ body::after{
 }
 
 .hero-title{
-  /* "Test Founders Grotesk" loads locally only (trial — gitignored).
-     Live site falls through to Bricolage Grotesque (Google Fonts). */
-  font-family: "Test Founders Grotesk", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-family: "Founders Grotesk", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   font-size: clamp(36px, 5.5vw, 52px);
   font-weight: 600;
   font-style: normal;
