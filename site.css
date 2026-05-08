@@ -4,22 +4,37 @@
    ========================================================================== */
 
 /* -----------------------------
-   Fonts (self-hosted)
-   NOTE: Update filenames to match your actual WOFF2 files.
+   Fonts (self-hosted, variable WOFF2)
    ----------------------------- */
 @font-face{
   font-family: "Satoshi";
-  src: url("assets/fonts/Satoshi-Light.woff2") format("woff2");
+  src: url("assets/fonts/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2") format("woff2-variations");
   font-weight: 300 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face{
+  font-family: "Satoshi";
+  src: url("assets/fonts/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-VariableItalic.woff2") format("woff2-variations");
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face{
   font-family: "General Sans";
-  src: url("assets/fonts/Satoshi-Light.woff2") format("woff2");
+  src: url("assets/fonts/GeneralSans_Complete/Fonts/WEB/fonts/GeneralSans-Variable.woff2") format("woff2-variations");
   font-weight: 200 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "General Sans";
+  src: url("assets/fonts/GeneralSans_Complete/Fonts/WEB/fonts/GeneralSans-VariableItalic.woff2") format("woff2-variations");
+  font-weight: 200 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -119,7 +134,7 @@ body::after{
   color: rgba(255,255,255,.72);
   text-decoration: none;
   font-size: 13px;
-  font-weight: 650;
+  font-weight: 450;
   letter-spacing: .06em;
   padding: 6px 6px;
   border-radius: 10px;
