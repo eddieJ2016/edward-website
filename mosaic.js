@@ -118,7 +118,7 @@
       awards: [],
       pressWide: true,
       press: [
-        { outlet: "The New Yorker", date: "Spring, 2014", url: "#" },
+        { outlet: "The New Yorker", date: "Spring, 2014", url: "assets/Gaddafi-NewYorker.PNG" },
         { outlet: "The Telegraph", date: "February 4, 2014", url: "https://www.telegraph.co.uk/culture/tvandradio/tv-and-radio-reviews/10614411/Storyville-Mad-Dog-Gaddafis-Secret-World-review.html", quote: "… thrillingly revelatory …" },
         { outlet: "The Guardian", date: "February 4, 2014", url: "https://www.theguardian.com/tv-and-radio/2014/feb/04/storyville-mad-dog-gaddafis-secret-world-tv-review", quote: "A masterful portrait of the man and of his rise and downfall …" },
         { outlet: "The Spectator", date: "February 6, 2014", url: "https://spectator.com/article/how-did-colonel-gaddafi-get-away-with-such-evil-for-so-long/?edition=us", quote: "… fascinating, supremely well-researched …" },
@@ -147,9 +147,9 @@
         { outlet: "The Times", date: "August 21, 2012", url: "https://www.thetimes.com/culture/tv-radio/article/last-nights-tv-ian-brady-endgames-of-a-psychopath-0f5vw3fj07z", quote: "… one of the best researched, revealing documentaries of the year …" },
 
         { outlet: "The Telegraph", date: "August 20, 2012", url: "https://www.telegraph.co.uk/culture/tvandradio/9487650/Ian-Brady-Endgames-of-a-Psychopath-Channel-4-review.html", quote: "Compelling … a troubling experience …" },
-        { outlet: "The Guardian", date: "August 21, 2012", url: "#" },
+        { outlet: "The Guardian", date: "August 21, 2012", url: "https://www.theguardian.com/media/2012/aug/21/ian-brady-documentary-tv-ratings" },
         { outlet: "The Guardian", date: "August 20, 2012", url: "https://www.theguardian.com/tv-and-radio/2012/aug/20/tv-review-our-war" },
-        { outlet: "Huffington Post", date: "August 20, 2012", url: "#" },
+        { outlet: "Huffington Post", date: "August 20, 2012", url: "https://www.huffingtonpost.co.uk/2012/08/20/review-ian-brady-endgames-psychopath-winnie-johnson_n_1813585.html" },
         { outlet: "Metro", date: "August 20, 2012", url: "https://metro.co.uk/2012/08/20/ian-brady-endgames-of-a-psychopath-tv-review-542472/" },
       ],
     },
