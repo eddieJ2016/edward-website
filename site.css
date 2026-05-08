@@ -339,7 +339,7 @@ body::after{
   font-size: clamp(36px, 5.5vw, 52px);
   font-weight: 600;
   font-style: normal;
-  letter-spacing: -.005em;
+  letter-spacing: .01em;
   line-height: 1.0;
   margin: 0 0 4px;
 }
@@ -347,7 +347,9 @@ body::after{
 .hero-sub{
   margin: 0;
   color: rgba(255,255,255,.70);
-  font-size: 13px;
+  font-family: "Founders Grotesk", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
   letter-spacing: .02em;
   line-height: 1.35;
 }
