@@ -42,15 +42,15 @@
       thumb: "assets/bloomberg.jpg",
       broadcasterLogo: "",
       broadcasterAlt: "",
-      broadcasterText: "Bloomberg",
+      broadcasterText: "Bloomberg Media Studios",
       year: "2024",
       duration: "—",
       credits: [
-
         { label: "Creative & Edit", value: "Edward Radford" },
-
       ],
-      awards: [],
+      awards: [
+        { festival: "Financial Communications Society — 30th Portfolio Awards, May 2024", award: "Best Branded Content · Gold Award" },
+      ],
       press: [],
     },
 
