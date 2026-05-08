@@ -109,6 +109,36 @@
   font-display: swap;
 }
 
+/* Founders Grotesk — display version, static individual weights */
+@font-face{
+  font-family: "Test Founders Grotesk";
+  src: url("assets/fonts/trials/test-founders-grotesk-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Founders Grotesk";
+  src: url("assets/fonts/trials/test-founders-grotesk-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Founders Grotesk";
+  src: url("assets/fonts/trials/test-founders-grotesk-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Founders Grotesk";
+  src: url("assets/fonts/trials/test-founders-grotesk-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* -----------------------------
    Fonts (self-hosted, variable WOFF2)
    ----------------------------- */
@@ -273,15 +303,15 @@ body::after{
 }
 
 .hero-title{
-  /* "Test Söhne" loads locally only (trial — gitignored).
+  /* "Test Founders Grotesk" loads locally only (trial — gitignored).
      Live site falls through to Bricolage Grotesque (Google Fonts). */
-  font-family: "Test Söhne", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-family: "Test Founders Grotesk", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   font-size: clamp(36px, 5.5vw, 52px);
-  font-weight: 300;
+  font-weight: 700;
   font-style: normal;
   letter-spacing: -.005em;
-  line-height: 1.05;
-  margin: 0 0 14px;
+  line-height: 1.0;
+  margin: 0 0 4px;
 }
 
 .hero-sub{
@@ -456,6 +486,12 @@ body::after{
 .broadcaster-logo.logo--xs{ height: 22px; max-width: 130px; }
 .broadcaster-logo.logo--sm{ height: 26px; max-width: 150px; }
 .broadcaster-logo.logo--lg{ height: 40px; max-width: 200px; }
+
+/* Bloomberg Media Studios logo ships as white-on-solid-black PNG;
+   screen blend drops the black so it sits cleanly on the drawer bg. */
+.broadcaster-logo[src$="bloomberg-media-studios-logo.png"]{
+  mix-blend-mode: screen;
+}
 
 .meta-row{
   display: flex;
@@ -757,12 +793,19 @@ body::after{
 }
 
 /* =========================================================================
-   About columns
+   About: text in 2 internal columns + portrait as the third column
    ========================================================================= */
+.about-layout{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 44px;
+  align-items: start;
+  margin-top: 10px;
+}
+
 .about-columns{
   column-count: 2;
   column-gap: 44px;
-  margin-top: 10px;
 }
 
 .about-columns .section-body{
@@ -774,7 +817,19 @@ body::after{
 
 .about-columns .section-body:first-child{ margin-top: 0; }
 
+.about-portrait{
+  margin: 0;
+}
+
+.about-portrait img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
 @media (max-width: 900px){
+  .about-layout{ grid-template-columns: 1fr; gap: 22px; }
   .about-columns{ column-count: 1; }
 }
 

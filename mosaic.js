@@ -19,7 +19,7 @@
       duration: "84 min",
       credits: [
         { label: "Director", value: "Micheal Rice" },
-        { label: "Producer", value: "Edward Radford p.g.a." },
+        { label: "Producer + Editor", value: "Edward Radford p.g.a." },
         { label: "Executive Producers", value: ["Billy Porter", "Gerald Oxford"] },
          { label: "Director of Photography", value: "Holly Fischer" },
       ],
@@ -40,8 +40,8 @@
     "bloomberg": {
       title: "Bloomberg",
       thumb: "assets/bloomberg.jpg",
-      broadcasterLogo: "",
-      broadcasterAlt: "",
+      broadcasterLogo: "assets/bloomberg-media-studios-logo.png",
+      broadcasterAlt: "Bloomberg Media Studios",
       broadcasterText: "Bloomberg Media Studios",
       year: "2024",
       duration: "—",
@@ -63,10 +63,8 @@
       year: "2018",
       duration: "58 mins",
       credits: [
-
-    { label: "Director", value: "Micheal Rice" },
-        { label: "Producer", value: "Edward Radford" },
-
+        { label: "Director", value: "Micheal Rice" },
+        { label: "Producer + Editor", value: "Edward Radford" },
       ],
       awards: [
 
