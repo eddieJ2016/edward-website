@@ -9,7 +9,7 @@
   const DETAILS = {
     "black-as-u-r": {
       title: "BLACK AS U R",
-      thumb: DEFAULT_THUMB,
+      thumb: "assets/black-as-u-r.jpg",
 
       broadcasterLogo: "assets/RiceCreative-logo.png",          // e.g. "assets/logos/pbs.png" OR array of logo objects
       broadcasterAlt: "Rice Creative",
