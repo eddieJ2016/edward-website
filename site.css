@@ -167,13 +167,14 @@ body::after{
 }
 
 .hero-title{
-  font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 650;
-  letter-spacing: .03em;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-size: clamp(36px, 5.5vw, 52px);
+  font-weight: 350;
+  font-style: normal;
+  font-optical-sizing: auto;
+  letter-spacing: -.005em;
   line-height: 1.05;
-  margin: 0 0 10px;
-  text-transform: uppercase;
+  margin: 0 0 14px;
 }
 
 .hero-sub{
@@ -277,8 +278,8 @@ body::after{
 .drawer-title{
   font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   margin: 0 0 12px;
-  font-size: 22px;
-  font-weight: 650;
+  font-size: 24px;
+  font-weight: 300;
   letter-spacing: .02em;
   text-shadow: 0 0 18px rgba(255,255,255,.10);
 }
@@ -681,6 +682,7 @@ body::after{
   font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   margin: 0 0 10px;
   font-size: 14px;
+  font-weight: 300;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: rgba(255,255,255,.55);
@@ -744,30 +746,52 @@ body::after{
   margin-bottom: 34px;
 }
 
-.logo-strip{
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
-
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 0;
-  align-items: center;
-
-  color: rgba(255,255,255,.72);
-  font-size: 13px;
-  letter-spacing: .03em;
+/* =========================================================================
+   Logo marquee (Selected outlets — slow infinite slider)
+   ========================================================================= */
+.logo-marquee{
+  position: relative;
+  margin: 14px 0 0;
+  overflow: hidden;
+  /* Edge fades so logos enter/exit gracefully */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
 }
 
-.logo-strip li{
+.logo-marquee__track{
+  display: flex;
+  width: max-content;
+  animation: logo-scroll 45s linear infinite;
+}
+
+.logo-marquee__list{
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  margin: 0;
+  padding: 0 56px 0 0;   /* matches gap so the seam between copies is invisible */
+  list-style: none;
+  flex-shrink: 0;
+}
+
+.logo-marquee__list li{
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
-.logo-strip li + li::before{
-  content: "\00B7";
-  color: rgba(255,255,255,.28);
-  margin: 0 12px;
+.logo-marquee:hover .logo-marquee__track,
+.logo-marquee:focus-within .logo-marquee__track{
+  animation-play-state: paused;
+}
+
+@keyframes logo-scroll{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .logo-marquee__track{ animation: none; }
 }
 
 /* =========================================================================
@@ -787,17 +811,27 @@ body::after{
 }
 
 
-.logo-strip img{
-  height: 18px;
+.logo-marquee img{
+  height: 40px;
   width: auto;
-  max-width: 160px;
+  max-width: 280px;
   display: block;
-  opacity: .88;
+  opacity: .82;
+  /* Force monochrome white so simpleicons (black) and Wikipedia (brand-coloured)
+     SVGs read consistently on the dark background. */
+  filter: brightness(0) invert(1);
 }
 
-/* per-logo tweaks, same idea as broadcaster logos */
-.logo-strip img.logo--sm{ height: 16px; max-width: 140px; }
-.logo-strip img.logo--lg{ height: 22px; max-width: 200px; }
+/* per-logo tweaks for fine-tuning specific marks */
+.logo-marquee img.logo--xs{ height: 28px; max-width: 200px; }
+.logo-marquee img.logo--sm{ height: 34px; max-width: 240px; }
+.logo-marquee img.logo--lg{ height: 48px; max-width: 320px; }
+
+/* Keep brand colour on iconic marks (e.g. NatGeo yellow, Showtime red) */
+.logo-marquee img.logo--keep-color{
+  filter: none;
+  opacity: 1;
+}
 
 .press-quote{
   margin-top: 6px;
