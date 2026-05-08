@@ -745,6 +745,60 @@ body::after{
 }
 
 /* =========================================================================
+   Clip lightbox modal — hidden by default; shown when .is-open
+   ========================================================================= */
+.clip-modal{
+  display: none;
+}
+
+.clip-modal.is-open{
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.clip-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  cursor: pointer;
+}
+
+.clip-panel{
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.clip-x{
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: 0;
+  color: rgba(255,255,255,.9);
+  font-size: 14px;
+  letter-spacing: .12em;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.clip-x:hover{ color: #fff; }
+
+.clip-media iframe,
+.clip-media video{
+  display: block;
+  width: 90vw;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+}
+
+/* =========================================================================
    Drawer content reveal (filmic stagger) + scanner pass
    ========================================================================= */
 .drawer .drawer-title,
