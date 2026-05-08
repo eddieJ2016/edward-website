@@ -65,6 +65,50 @@
   font-display: swap;
 }
 
+/* Söhne — static individual weights (no variable trial available) */
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-extraleicht.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-leicht.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-kraftig.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-halbfett.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Söhne";
+  src: url("assets/fonts/trials/test-soehne-dreiviertelfett.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* -----------------------------
    Fonts (self-hosted, variable WOFF2)
    ----------------------------- */
@@ -229,11 +273,11 @@ body::after{
 }
 
 .hero-title{
-  /* "Test Untitled Sans" loads locally only (trial — gitignored).
+  /* "Test Söhne" loads locally only (trial — gitignored).
      Live site falls through to Bricolage Grotesque (Google Fonts). */
-  font-family: "Test Untitled Sans", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-family: "Test Söhne", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   font-size: clamp(36px, 5.5vw, 52px);
-  font-weight: 350;
+  font-weight: 300;
   font-style: normal;
   letter-spacing: -.005em;
   line-height: 1.05;

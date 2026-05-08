@@ -99,14 +99,6 @@
     "gaddafi": {
       title: "Mad Dog: Gaddafi’s Secret World",
       thumb: "assets/gaddafi.gif",
-      
-clips: [
-  { label: "Trailer", kind: "vimeo", id: "123456789" },
-  { label: "Clip 1",  kind: "mp4",   src: "assets/clips/gaddafi-clip1.mp4" },
-  { label: "Clip 2",  kind: "youtube", id: "dQw4w9WgXcQ" },
-],
-      
-      
       broadcasterLogo: [
         // Add className to shrink a specific logo, e.g. { ..., className: "logo--sm" }
         { src: "assets/showtime.png", alt: "Showtime", className: "logo--sm" },
