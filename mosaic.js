@@ -39,7 +39,7 @@
 
     "bloomberg": {
       title: "Bloomberg",
-      thumb: DEFAULT_THUMB,
+      thumb: "assets/bloomberg.jpg",
       broadcasterLogo: "",
       broadcasterAlt: "",
       broadcasterText: "Bloomberg",

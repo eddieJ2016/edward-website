@@ -4,6 +4,68 @@
    ========================================================================== */
 
 /* -----------------------------
+   Klim trial fonts — for design exploration only.
+   DO NOT deploy to live site; trial licence forbids production use.
+   Remove these @font-face blocks before pushing to GitHub.
+   ----------------------------- */
+@font-face{
+  font-family: "Test Untitled Sans";
+  src: url("assets/fonts/trials/test-untitled-sans-vf-roman.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Untitled Sans";
+  src: url("assets/fonts/trials/test-untitled-sans-vf-italic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Family";
+  src: url("assets/fonts/trials/test-family-vf-roman.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Family";
+  src: url("assets/fonts/trials/test-family-vf-italic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Geograph";
+  src: url("assets/fonts/trials/test-geograph-vf-roman.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Geograph";
+  src: url("assets/fonts/trials/test-geograph-vf-italic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Die Grotesk";
+  src: url("assets/fonts/trials/test-die-grotesk-vf-roman.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Test Die Grotesk";
+  src: url("assets/fonts/trials/test-die-grotesk-vf-italic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* -----------------------------
    Fonts (self-hosted, variable WOFF2)
    ----------------------------- */
 @font-face{
@@ -167,11 +229,12 @@ body::after{
 }
 
 .hero-title{
-  font-family: "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  /* "Test Untitled Sans" loads locally only (trial — gitignored).
+     Live site falls through to Bricolage Grotesque (Google Fonts). */
+  font-family: "Test Untitled Sans", "Bricolage Grotesque", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
   font-size: clamp(36px, 5.5vw, 52px);
   font-weight: 350;
   font-style: normal;
-  font-optical-sizing: auto;
   letter-spacing: -.005em;
   line-height: 1.05;
   margin: 0 0 14px;

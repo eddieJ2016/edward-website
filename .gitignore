@@ -17,3 +17,7 @@ node_modules/
 # Local environment
 .env
 .env.local
+
+# Klim trial fonts — licensed for design exploration only,
+# not for production deployment. Keep these local.
+assets/fonts/trials/
