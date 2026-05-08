@@ -31,9 +31,9 @@
         { festival: "34th NewFest Film Festival", award: "Documentary (Feature) Jury Award | Special Mention" },
       ],
       press: [
-        { outlet: "Golden Globes", date: "June 29, 2023", url: "#" },
-        { outlet: "Deadline", date: "February 15, 2023", url: "#" },
-        { outlet: "Atlanta News First", date: "December 9, 2024", url: "#" },
+        { outlet: "Golden Globes", date: "June 29, 2023", url: "https://goldenglobes.com/articles/micheal-rice-unapologetically-amplifies-black-queer-voices-america/" },
+        { outlet: "Deadline", date: "February 15, 2023", url: "https://deadline.com/2023/02/billy-porter-michael-rice-black-as-u-r-1235260277/" },
+        { outlet: "Atlanta News First", date: "August 15, 2024", url: "https://www.atlantanewsfirst.com/2024/08/15/new-award-winning-documentary-dedicated-lgbtq-visibility/" },
       ],
     },
 
@@ -119,12 +119,12 @@
       pressWide: true,
       press: [
         { outlet: "The New Yorker", date: "Spring, 2014", url: "#" },
-        { outlet: "The Telegraph", date: "February 4, 2014", url: "#", quote: "… thrillingly revelatory …" },
-        { outlet: "The Guardian", date: "February 4, 2014", url: "#", quote: "A masterful portrait of the man and of his rise and downfall …" },
-        { outlet: "The Spectator", date: "February 6, 2014", url: "#", quote: "… fascinating, supremely well-researched …" },
-        { outlet: "IndieWire", date: "February 19, 2014", url: "#" },
-        { outlet: "Fox News", date: "April 6, 2014", url: "#" },
-        { outlet: "Variety", date: "April 9, 2014", url: "#" },
+        { outlet: "The Telegraph", date: "February 4, 2014", url: "https://www.telegraph.co.uk/culture/tvandradio/tv-and-radio-reviews/10614411/Storyville-Mad-Dog-Gaddafis-Secret-World-review.html", quote: "… thrillingly revelatory …" },
+        { outlet: "The Guardian", date: "February 4, 2014", url: "https://www.theguardian.com/tv-and-radio/2014/feb/04/storyville-mad-dog-gaddafis-secret-world-tv-review", quote: "A masterful portrait of the man and of his rise and downfall …" },
+        { outlet: "The Spectator", date: "February 6, 2014", url: "https://spectator.com/article/how-did-colonel-gaddafi-get-away-with-such-evil-for-so-long/?edition=us", quote: "… fascinating, supremely well-researched …" },
+        { outlet: "IndieWire", date: "February 19, 2014", url: "https://www.indiewire.com/features/general/showtime-to-release-doc-mad-dog-inside-the-secret-world-of-muammar-gaddafi-29802/" },
+        { outlet: "Fox News", date: "April 6, 2014", url: "https://www.foxnews.com/entertainment/documentary-reveals-libyan-dictator-muammar-qaddafis-brutal-regime" },
+        { outlet: "Variety", date: "April 9, 2014", url: "https://variety.com/2014/tv/reviews/tv-review-mad-dog-inside-the-secret-world-of-muammar-gaddafi-1201153608/" },
       ],
       
     },
