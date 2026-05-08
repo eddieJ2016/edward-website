@@ -379,19 +379,18 @@ body::after{
   color: var(--ink);
 
   background: #111;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.02);
   aspect-ratio: 2 / 1;
 
   transform: none; /* no “breathing” */
   transition: border-color 180ms ease;
 }
 
-.tile:hover{ border-color: rgba(255,255,255,.16); }
+.tile:hover{ border-color: rgba(255,255,255,.08); }
 
 .tile[aria-expanded="true"]{
-  border-color: rgba(255,255,255,.32);
+  /* Border stays subtle — the SVG outline (below) is the active cue. */
   box-shadow:
-    0 0 0 1px rgba(255,255,255,.18),
     0 0 26px var(--glow),
     0 22px 70px rgba(0,0,0,.62);
 }
@@ -408,6 +407,37 @@ body::after{
   background-position: center;
   filter: saturate(1) contrast(1); /* neutral */
   transform: none;
+  transition: transform 480ms cubic-bezier(.2,.7,.2,1), filter 220ms ease;
+}
+
+.tile:hover .tile-img{
+  transform: scale(1.035);
+  filter: saturate(1.12) brightness(1.05) contrast(1.08);
+}
+
+/* Outline that draws in around the perimeter when the tile is active
+   (drawer open) and holds while the drawer remains open. */
+.tile-outline{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.tile-outline rect{
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 700ms cubic-bezier(.45, .05, .25, 1);
+}
+
+.tile[aria-expanded="true"] .tile-outline rect{
+  stroke-dashoffset: 0;
 }
 
 /* Optional overlay/text (currently off; you’ll bake into GIFs) */

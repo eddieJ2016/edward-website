@@ -30,6 +30,9 @@
         { festival: "34th NewFest Film Festival", award: "Chevrolet Changemaker Award" },
         { festival: "34th NewFest Film Festival", award: "Documentary (Feature) Jury Award | Special Mention" },
       ],
+      clips: [
+        { label: "Trailer", kind: "vimeo", id: "814805423" },
+      ],
       press: [
         { outlet: "Golden Globes", date: "June 29, 2023", url: "https://goldenglobes.com/articles/micheal-rice-unapologetically-amplifies-black-queer-voices-america/" },
         { outlet: "Deadline", date: "February 15, 2023", url: "https://deadline.com/2023/02/billy-porter-michael-rice-black-as-u-r-1235260277/" },
@@ -465,16 +468,23 @@ const pressHtml =
 
 
 // ===== CLIP LIGHTBOX =====
-const clipModal = document.getElementById("clipModal");
-const clipMedia = document.getElementById("clipMedia");
+// Look up modal elements lazily — the script may run before the modal HTML
+// is parsed (the <script> tag sits earlier in the document than the modal).
+function getClipEls(){
+  return {
+    clipModal: document.getElementById("clipModal"),
+    clipMedia: document.getElementById("clipMedia"),
+  };
+}
 
 function openClip(clip){
+  const { clipModal, clipMedia } = getClipEls();
   if (!clipModal || !clipMedia || !clip) return;
 
   let html = "";
 
   if (clip.kind === "youtube") {
-    html = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(clip.id)}?autoplay=1&rel=0"
+    html = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(clip.id)}?autoplay=1&rel=0&modestbranding=1"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowfullscreen></iframe>`;
   } else if (clip.kind === "vimeo") {
@@ -492,6 +502,7 @@ function openClip(clip){
 }
 
 function closeClip(){
+  const { clipModal, clipMedia } = getClipEls();
   if (!clipModal || !clipMedia) return;
   clipModal.classList.remove("is-open");
   clipModal.setAttribute("aria-hidden", "true");
@@ -520,6 +531,7 @@ document.addEventListener("click", (e) => {
 // ESC closes clip first, otherwise closes drawer
 document.addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
+  const { clipModal } = getClipEls();
   if (clipModal?.classList.contains("is-open")) closeClip();
 });
 
@@ -549,9 +561,25 @@ document.addEventListener("keydown", (e) => {
       meta.className = "tile-meta";
       meta.innerHTML = `<h3>${escapeHtml(p.title || id)}</h3><p></p>`;
 
+      // SVG outline that draws around the perimeter when active
+      const SVG_NS = "http://www.w3.org/2000/svg";
+      const outline = document.createElementNS(SVG_NS, "svg");
+      outline.setAttribute("class", "tile-outline");
+      outline.setAttribute("viewBox", "0 0 100 50");
+      outline.setAttribute("preserveAspectRatio", "none");
+      outline.setAttribute("aria-hidden", "true");
+      const outlineRect = document.createElementNS(SVG_NS, "rect");
+      outlineRect.setAttribute("x", "1");
+      outlineRect.setAttribute("y", "1");
+      outlineRect.setAttribute("width", "98");
+      outlineRect.setAttribute("height", "48");
+      outlineRect.setAttribute("pathLength", "100");
+      outline.appendChild(outlineRect);
+
       a.appendChild(img);
       a.appendChild(shade);
       a.appendChild(meta);
+      a.appendChild(outline);
 
       mosaic.appendChild(a);
     });
