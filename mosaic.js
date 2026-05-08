@@ -415,12 +415,14 @@ const pressHtml =
       <button class="clip-btn" type="button"
               data-open-clip="${escapeHtml(id)}"
               data-clip-index="${i}">
-        ▶ ${escapeHtml(c.label || `Clip ${i+1}`)}
+        <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
+        ${escapeHtml(c.label || `Clip ${i+1}`)}
       </button>
     `).join("")}
     ${(p.links || []).map((l) => `
       <a class="clip-btn" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">
-        ▶ ${escapeHtml(l.label)}
+        <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
+        ${escapeHtml(l.label)}
       </a>
     `).join("")}
       </div>

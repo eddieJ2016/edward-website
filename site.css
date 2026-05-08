@@ -736,32 +736,44 @@ body::after{
 
 .clip-btn{
   background: transparent;
-  border: 1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.78);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-family: "Satoshi", system-ui, -apple-system, Helvetica, Arial, sans-serif;
-  font-weight: 650;
-  font-size: 12px;
-  letter-spacing: .10em;
-  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.85);
+  padding: 9px 18px 9px 14px;
+  border-radius: 999px;
+  font-family: "Founders Grotesk", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: .005em;
+  text-transform: none;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, transform 220ms ease;
 }
 
 .clip-btn:hover{
-  border-color: rgba(255,255,255,.24);
-  color: rgba(255,255,255,.92);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.32);
+  color: #fff;
+}
+
+.clip-btn:active{
+  transform: scale(0.97);
+}
+
+.clip-btn__icon{
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  fill: currentColor;
 }
 
 .clip-btn:focus-visible{
   outline: 2px solid rgba(255,255,255,.55);
   outline-offset: 3px;
-  border-radius: 12px;
+  border-radius: 999px;
 }
 
 
@@ -1132,61 +1144,11 @@ body::after{
   color: rgba(255,255,255,.95);
 }
 
+/* Reset native button chrome inside the drawer footer; styling itself
+   comes from the base .clip-btn rule above. */
 .drawer-footer .clip-btn{
   -webkit-appearance: none;
   appearance: none;
-
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.78);
-  padding: 8px 12px;
-  border-radius: 12px;
-
-  font-family: "Satoshi", system-ui, -apple-system, Helvetica, Arial, sans-serif;
-  font-weight: 650;
-  font-size: 12px;
-  letter-spacing: .10em;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.drawer-footer .clip-btn:hover{
-  border-color: rgba(255,255,255,.24);
-  color: rgba(255,255,255,.92);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
-}
-
-
-.drawer-footer .clip-btn{
-  -webkit-appearance: none;
-  appearance: none;
-
-  background: transparent !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  padding: 8px 12px !important;
-  border-radius: 12px !important;
-
-  color: rgba(255,255,255,.78);
-  font-family: "Satoshi", system-ui, -apple-system, Helvetica, Arial, sans-serif;
-  font-weight: 650;
-  font-size: 12px;
-  letter-spacing: .10em;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.drawer-footer .clip-btn:hover{
-  border-color: rgba(255,255,255,.24) !important;
-  color: rgba(255,255,255,.92);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06);
 }
 
 .clip-btns{
