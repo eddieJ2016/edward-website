@@ -19,7 +19,7 @@
       duration: "84 min",
       credits: [
         { label: "Director", value: "Micheal Rice" },
-        { label: "Producer + Editor", value: "Edward Radford p.g.a." },
+        { label: "Producer", value: "Edward Radford p.g.a." },
         { label: "Executive Producers", value: ["Billy Porter", "Gerald Oxford"] },
          { label: "Director of Photography", value: "Holly Fischer" },
       ],
@@ -52,6 +52,9 @@
         { festival: "Financial Communications Society — 30th Portfolio Awards, May 2024", award: "Best Branded Content · Gold Award" },
       ],
       press: [],
+      links: [
+        { label: "Watch on YouTube", url: "https://www.youtube.com/watch?v=qW1_A9zOHmI&list=PLGaYlBJIOoa89MTQobWX5SsCNR_gtJgHu" },
+      ],
     },
 
     "party-boi": {
@@ -137,8 +140,7 @@
       credits: [
         { label: "Director", value: "Paddy Wivell" },
         { label: "Executive Producer", value: "Emma Loach" },
-        { label: "Director of Photography", value: "Edward Radford" },
-        { label: "Editor", value: "Edward Radford" },
+        { label: ["Director of Photography", "Editor"], value: "Edward Radford" },
       ],
       awards: [],
       press: [
@@ -205,6 +207,12 @@
     return `
       <div class="credits">
         ${credits.map((c) => {
+          const labels = Array.isArray(c.label) ? c.label : [c.label];
+          const labelHtml = labels
+            .filter(Boolean)
+            .map((l) => escapeHtml(l))
+            .join("<br>");
+
           const lines = Array.isArray(c.value) ? c.value : [c.value];
           const linesHtml = lines
             .filter(Boolean)
@@ -213,7 +221,7 @@
 
           return `
             <div class="credit">
-              <div class="credit-k">${escapeHtml(c.label)}</div>
+              <div class="credit-k">${labelHtml}</div>
               <div class="credit-v">${linesHtml}</div>
             </div>
           `;
@@ -398,14 +406,19 @@ const pressHtml =
 
     <div class="drawer-footer">
        
-        ${Array.isArray(p.clips) && p.clips.length ? `
+        ${(Array.isArray(p.clips) && p.clips.length) || (Array.isArray(p.links) && p.links.length) ? `
     <div class="clip-btns">
-    ${p.clips.map((c, i) => `
+    ${(p.clips || []).map((c, i) => `
       <button class="clip-btn" type="button"
               data-open-clip="${escapeHtml(id)}"
               data-clip-index="${i}">
         ▶ ${escapeHtml(c.label || `Clip ${i+1}`)}
       </button>
+    `).join("")}
+    ${(p.links || []).map((l) => `
+      <a class="clip-btn" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">
+        ▶ ${escapeHtml(l.label)}
+      </a>
     `).join("")}
       </div>
       ` : ``}
