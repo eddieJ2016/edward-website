@@ -862,6 +862,13 @@ body::after{
   border-radius: 2px;
 }
 
+/* Highlighted award names within prose */
+.about-text .award{
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.30);
+  padding-bottom: 1px;
+}
+
 @media (max-width: 900px){
   .about-layout{ grid-template-columns: 1fr; gap: 22px; }
   .about-columns{ column-count: 1; }
