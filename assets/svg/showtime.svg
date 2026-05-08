@@ -1,1 +1,186 @@
-<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Showtime</title><path fill="#E20613" d="M16.99 12.167c0-4.808 1.779-7.84 3.903-8.16C18.769 1.397 15.221 0 11.999 0 8.451 0 5.265 1.54 3.07 3.985c2.094.416 2.806 2.174 2.806 4.892H3.314c0-1.605-.334-2.436-1.284-2.436-.427 0-.758.217-.954.587-.027.06-.057.122-.084.184a2.115 2.115 0 0 0-.114.71c0 3.324 5.46 3.159 5.46 8.27 0 1.995-1.53 3.855-3.252 3.855C5.35 22.52 8.441 24 12 24c3.46 0 6.577-1.464 8.766-3.808-2.018-.509-3.776-3.413-3.776-8.025zm-1.142 7.921h-2.746V13.26h-2.967v6.83H7.384V4.327h2.746v6.348h2.972V4.327h2.746v15.761zM2.372 17.58c-1.32 0-2.399-2.32-2.372-5.8 1.905 1.72 3.681 2.11 3.681 4.145 0 .981-.543 1.655-1.309 1.655zM24 12.002c0 2.844-.896 5.409-2.1 5.409-1.445 0-2.181-2.703-2.181-5.498 0-2.654.771-5.308 2.181-5.308 1.676 0 2.1 4.102 2.1 5.397z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="50 245 615 185"
+   version="1.1"
+   sodipodi:docname="showtime-logo.svg"
+   width="615"
+   height="185"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="C:\Users\alex\sites\showtime-logo-0.png"
+   inkscape:export-xdpi="561.73712"
+   inkscape:export-ydpi="561.73712">
+  <metadata
+     id="metadata25">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Showtime_logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="838"
+     id="namedview23"
+     showgrid="false"
+     inkscape:zoom="0.419484"
+     inkscape:cx="203.62335"
+     inkscape:cy="228.49874"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1,.cls-2{fill:#fff;}.cls-1{fill-rule:evenodd;}</style>
+  </defs>
+  <title
+     id="title6">Showtime_logo</title>
+  <path
+     class="cls-1"
+     d="m 210.10633,351.37693 c 0,-39.81499 14.72823,-64.93826 32.32314,-67.58927 -17.58164,-21.62286 -46.9817,-33.17585 -73.66106,-33.17585 a 99.149295,99.149295 0 0 0 -73.98954,33.00995 c 17.36266,3.43736 23.26855,17.98643 23.26855,40.51176 H 96.812752 c 0,-13.27166 -2.763824,-20.17293 -10.63724,-20.17293 a 8.6265826,8.6265826 0 0 0 -7.899958,4.84416 c -0.235572,0.51427 -0.46119,1.03187 -0.686809,1.54946 a 17.127084,17.127084 0 0 0 -0.948924,5.85944 c 0,27.53871 45.226519,26.16841 45.226519,68.49839 0,16.52986 -12.67112,31.94158 -26.941482,31.94158 a 99.510948,99.510948 0 0 0 146.456152,1.19777 c -16.71899,-4.21376 -31.27468,-28.2587 -31.27468,-66.47446 z m -9.46602,65.62175 h -22.741 v -56.56384 h -24.55258 v 56.56384 H 130.53937 V 286.44531 h 22.75096 v 52.59893 h 24.60898 v -52.59893 h 22.741 z"
+     id="path8"
+     style="fill:#e3191e;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-1"
+     d="m 89.018967,396.20862 c 6.350492,0 10.85954,-5.59069 10.85954,-13.70631 0.01327,-16.83511 -14.741502,-20.07672 -30.511558,-34.31721 -0.205711,28.8161 8.70953,48.02352 19.652018,48.02352 z"
+     id="path10"
+     style="fill:#e3191e;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-1"
+     d="m 232.71129,349.26674 c 0,-21.96793 6.39694,-43.96239 18.07269,-43.96239 13.87884,0 17.38256,33.96882 17.38256,44.69565 0,23.5572 -7.41222,44.81841 -17.38256,44.81841 -11.98431,0 -18.07269,-22.3893 -18.07269,-45.55167 z"
+     id="path12"
+     style="fill:#e3191e;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <polygon
+     class="cls-2"
+     points="79.02,25.376 79.128,25.376 82.461,49.619 88.804,49.619 93.032,17.259 98.963,17.259 98.963,49.619 105.952,49.619 105.952,17.259 112.351,17.259 112.351,49.619 119.339,49.619 119.339,11.346 117.705,11.346 112.351,11.346 93.804,11.346 92.942,11.346 88.804,11.346 86.063,33.816 85.955,33.816 82.891,11.346 76.601,11.346 73.268,33.816 73.16,33.816 70.688,11.346 64.344,11.346 69.451,49.619 75.58,49.619 "
+     id="polygon14"
+     style="fill:#e3191e;fill-opacity:1"
+     transform="matrix(3.3179164,0,0,3.3179164,69.366949,250.61181)"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 476.72081,288.25689 h 30.85663 l 10.34526,65.09752 h 0.35502 l 10.87945,-65.09752 h 30.14658 V 415.2435 h -20.69052 v -93.10073 h -0.35834 l -15.69706,93.10073 h -12.84365 l -15.5179,-93.10073 h -0.35502 V 415.2435 H 476.7175 Z"
+     id="path16"
+     style="fill:#e3191e;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 570.70411,288.25689 h 52.44299 v 19.61884 h -29.25407 v 32.45918 h 21.56646 v 20.69052 h -21.56646 v 34.59592 h 30.50161 v 19.62215 h -53.69053 z"
+     id="path18"
+     style="fill:#e3191e;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 636.49508,406.20218 c 1.41011,0 2.26282,0.66359 2.26282,1.76845 0,0.74985 -0.41142,1.61583 -1.82154,1.85804 0.89916,0.54413 1.07169,0.66358 2.07702,3.04252 H 638.018 c -1.18781,-2.62115 -1.54615,-2.9264 -3.06243,-2.9264 h -0.39152 v 2.91313 h -0.81952 v -6.66901 z m -0.83612,3.07903 c 1.54947,0 2.12679,-0.33179 2.12679,-1.2409 0,-0.90911 -0.50764,-1.17454 -2.00734,-1.17454 h -1.22431 v 2.41544 z m 6.96763,0.18912 a 6.3471741,6.3471741 0 1 1 -6.34718,-6.35049 6.3471741,6.3471741 0 0 1 6.35713,6.35049 z m -11.89473,0 a 5.5475562,5.5475562 0 1 0 5.54755,-5.54756 5.5508741,5.5508741 0 0 0 -5.52101,5.54756 z"
+     id="path20"
+     style="fill:#e3191e;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-5.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-1"
+     d="m 200.76255,885.28963 c 0,-39.81499 14.72823,-64.93826 32.32314,-67.58927 -17.58164,-21.62286 -46.9817,-33.17585 -73.66106,-33.17585 a 99.149295,99.149295 0 0 0 -73.989537,33.00995 c 17.362657,3.43736 23.268547,17.98643 23.268547,40.51176 H 87.468975 c 0,-13.27166 -2.763824,-20.17293 -10.63724,-20.17293 a 8.6265826,8.6265826 0 0 0 -7.899958,4.84416 c -0.235572,0.51427 -0.46119,1.03187 -0.686809,1.54946 a 17.127084,17.127084 0 0 0 -0.948924,5.85944 c 0,27.53871 45.226516,26.16841 45.226516,68.49839 0,16.52986 -12.671117,31.94158 -26.941479,31.94158 a 99.510948,99.510948 0 0 0 146.456149,1.19777 c -16.71899,-4.21376 -31.27468,-28.2587 -31.27468,-66.47446 z m -9.46602,65.62175 h -22.741 v -56.56384 h -24.55258 v 56.56384 H 121.19559 V 820.35801 h 22.75096 v 52.59893 h 24.60898 v -52.59893 h 22.741 z"
+     id="path8-1"
+     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-1"
+     d="m 79.67519,930.12132 c 6.350492,0 10.85954,-5.59069 10.85954,-13.70631 C 90.548,899.5799 75.793228,896.33829 60.023172,882.0978 c -0.205711,28.8161 8.70953,48.02352 19.652018,48.02352 z"
+     id="path10-5"
+     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-1"
+     d="m 223.36751,883.17944 c 0,-21.96793 6.39694,-43.96239 18.07269,-43.96239 13.87884,0 17.38256,33.96882 17.38256,44.69565 0,23.5572 -7.41222,44.81841 -17.38256,44.81841 -11.98431,0 -18.07269,-22.3893 -18.07269,-45.55167 z"
+     id="path12-6"
+     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <polygon
+     class="cls-2"
+     points="79.128,25.376 82.461,49.619 88.804,49.619 93.032,17.259 98.963,17.259 98.963,49.619 105.952,49.619 105.952,17.259 112.351,17.259 112.351,49.619 119.339,49.619 119.339,11.346 117.705,11.346 112.351,11.346 93.804,11.346 92.942,11.346 88.804,11.346 86.063,33.816 85.955,33.816 82.891,11.346 76.601,11.346 73.268,33.816 73.16,33.816 70.688,11.346 64.344,11.346 69.451,49.619 75.58,49.619 79.02,25.376 "
+     id="polygon14-2"
+     style="fill:#000000;fill-opacity:1"
+     transform="matrix(3.3179164,0,0,3.3179164,60.023172,784.52451)"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 467.37703,822.16959 h 30.85663 l 10.34526,65.09752 h 0.35502 l 10.87945,-65.09752 h 30.14658 V 949.1562 h -20.69052 v -93.10073 h -0.35834 L 513.21405,949.1562 H 500.3704 l -15.5179,-93.10073 h -0.35502 v 93.10073 h -17.12376 z"
+     id="path16-3"
+     style="fill:#000000;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 561.36033,822.16959 h 52.44299 v 19.61884 h -29.25407 v 32.45918 h 21.56646 v 20.69052 h -21.56646 v 34.59592 h 30.50161 v 19.62215 h -53.69053 z"
+     id="path18-7"
+     style="fill:#000000;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+  <path
+     class="cls-2"
+     d="m 627.1513,940.11488 c 1.41011,0 2.26282,0.66359 2.26282,1.76845 0,0.74985 -0.41142,1.61583 -1.82154,1.85804 0.89916,0.54413 1.07169,0.66358 2.07702,3.04252 h -0.99538 c -1.18781,-2.62115 -1.54615,-2.9264 -3.06243,-2.9264 h -0.39152 v 2.91313 h -0.81952 v -6.66901 z m -0.83612,3.07903 c 1.54947,0 2.12679,-0.33179 2.12679,-1.2409 0,-0.90911 -0.50764,-1.17454 -2.00734,-1.17454 h -1.22431 v 2.41544 z m 6.96763,0.18912 a 6.3471741,6.3471741 0 1 1 -6.34718,-6.35049 6.3471741,6.3471741 0 0 1 6.35713,6.35049 z m -11.89473,0 a 5.5475562,5.5475562 0 1 0 5.54755,-5.54756 5.5508741,5.5508741 0 0 0 -5.52101,5.54756 z"
+     id="path20-9"
+     style="fill:#000000;fill-opacity:1;stroke-width:3.31791639"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="C:\Users\alex\sites\showtime-logo-4.png"
+     inkscape:export-xdpi="117.22163"
+     inkscape:export-ydpi="117.22163" />
+</svg>
