@@ -144,13 +144,13 @@
       ],
       awards: [],
       press: [
-        { outlet: "The Times", date: "August 21, 2012", url: "#", quote: "… one of the best researched, revealing documentaries of the year …" },
+        { outlet: "The Times", date: "August 21, 2012", url: "https://www.thetimes.com/culture/tv-radio/article/last-nights-tv-ian-brady-endgames-of-a-psychopath-0f5vw3fj07z", quote: "… one of the best researched, revealing documentaries of the year …" },
 
-        { outlet: "The Telegraph", date: "August 20, 2012", url: "#", quote: "Compelling … a troubling experience …" },
+        { outlet: "The Telegraph", date: "August 20, 2012", url: "https://www.telegraph.co.uk/culture/tvandradio/9487650/Ian-Brady-Endgames-of-a-Psychopath-Channel-4-review.html", quote: "Compelling … a troubling experience …" },
         { outlet: "The Guardian", date: "August 21, 2012", url: "#" },
-        { outlet: "The Guardian", date: "August 20, 2012", url: "#" },
+        { outlet: "The Guardian", date: "August 20, 2012", url: "https://www.theguardian.com/tv-and-radio/2012/aug/20/tv-review-our-war" },
         { outlet: "Huffington Post", date: "August 20, 2012", url: "#" },
-        { outlet: "Metro", date: "August 20, 2012", url: "#" },
+        { outlet: "Metro", date: "August 20, 2012", url: "https://metro.co.uk/2012/08/20/ian-brady-endgames-of-a-psychopath-tv-review-542472/" },
       ],
     },
   };
