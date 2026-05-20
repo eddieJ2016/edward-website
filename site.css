@@ -388,6 +388,22 @@ body::after{
 
 .tile:hover{ border-color: rgba(255,255,255,.08); }
 
+/* Featured tile (e.g. most recent / award-winning) — spans 2 columns,
+   takes the row's natural height so it sits flush with its neighbour.
+   Aspect becomes ~4:1, a cinemascope banner that draws focus. */
+.tile--featured{
+  grid-column: span 2;
+  aspect-ratio: auto;
+}
+
+/* Stack the featured tile to full width on small screens */
+@media (max-width: 900px){
+  .tile--featured{ grid-column: span 2; }
+}
+@media (max-width: 520px){
+  .tile--featured{ grid-column: span 1; aspect-ratio: 2 / 1; }
+}
+
 .tile[aria-expanded="true"]{
   /* Border stays subtle — the SVG outline (below) is the active cue. */
   box-shadow:
@@ -551,6 +567,7 @@ body::after{
 .broadcaster-logo.logo--xs{ height: 22px; max-width: 130px; }
 .broadcaster-logo.logo--sm{ height: 26px; max-width: 150px; }
 .broadcaster-logo.logo--lg{ height: 40px; max-width: 200px; }
+.broadcaster-logo.logo--xl{ height: 64px; max-width: 260px; }
 
 
 .meta-row{
@@ -577,7 +594,20 @@ body::after{
   border-top: 0;
 }
 
-.credit{ margin-top: 10px; }
+/* When the credits panel has 4+ entries, flow them into 2 sub-columns
+   so long crew lists distribute horizontally instead of stacking. */
+.credits:has(.credit:nth-child(4)){
+  column-count: 2;
+  column-gap: 20px;
+}
+
+.credit{
+  margin-top: 10px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+.credit:first-child{ margin-top: 0; }
 
 .credit-k{
   font-family: "Satoshi", system-ui, -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;

@@ -7,6 +7,33 @@
 
   // ===== DATA =====
   const DETAILS = {
+    "youngarts": {
+      title: "YoungArts Presents: Joseph Webb",
+      thumb: "assets/youngarts-presents.jpg",
+      featured: true,
+      broadcasterLogo: [
+        { src: "assets/Young-Arts-logo.png", alt: "YoungArts — The National Foundation for the Advancement of Artists", className: "logo--xl" },
+      ],
+      broadcasterAlt: "",
+      broadcasterText: "YoungArts",
+      year: "2026",
+      duration: "—",
+      credits: [
+        { label: "Director", value: "Holly Fischer" },
+        { label: "Executive Producer", value: "Dave Adams" },
+        { label: "Senior Producer", value: "Lee Cohen" },
+        { label: "Producers", value: ["Ruby Brown", "Leslie Reed"] },
+        { label: "Editor", value: "Edward Radford" },
+      ],
+      awards: [
+        { festival: "Telly Awards — 47th Annual, 2026", award: "Campaign · Non-Scripted & Documentary · Silver" },
+      ],
+      press: [],
+      clips: [
+        { label: "Watch", kind: "youtube", id: "mbZ8c-c_oVc" },
+      ],
+    },
+
     "black-as-u-r": {
       title: "BLACK AS U R",
       thumb: "assets/black-as-u-r.jpg",
@@ -49,6 +76,7 @@
       year: "2024",
       duration: "—",
       credits: [
+        { label: "Global Executive Editor", value: "Michael Walker" },
         { label: "Creative & Edit", value: "Edward Radford" },
       ],
       awards: [
@@ -160,6 +188,7 @@
 
   // Controls tile order on the page
   const ORDER = [
+    "youngarts",
     "bloomberg",
     "black-as-u-r",
     "party-boi",
@@ -317,6 +346,31 @@ const pressHtml =
         : `<ul class="drawer-list">${renderPressItems(p.press)}</ul>`)
     : `<div class="drawer-empty">—</div>`;
 
+    const hasButtons = (Array.isArray(p.clips) && p.clips.length) || (Array.isArray(p.links) && p.links.length);
+    const buttonsHtml = hasButtons ? `
+      <div class="clip-btns">
+        ${(p.clips || []).map((c, i) => `
+          <button class="clip-btn" type="button"
+                  data-open-clip="${escapeHtml(id)}"
+                  data-clip-index="${i}">
+            <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
+            ${escapeHtml(c.label || `Clip ${i+1}`)}
+          </button>
+        `).join("")}
+        ${(p.links || []).map((l) => `
+          <a class="clip-btn" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">
+            <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
+            ${escapeHtml(l.label)}
+          </a>
+        `).join("")}
+      </div>
+    ` : "";
+
+    // If awards exist, the buttons sit below the awards (visually
+    // balances a sparse awards panel). Otherwise they fall back
+    // to the drawer footer.
+    const buttonsInAwards = hasAwards && hasButtons;
+
     const optionalPanels = [];
 
     if (hasAwards) {
@@ -324,6 +378,7 @@ const pressHtml =
         <div class="drawer-panel">
           <div class="panel-title">Awards</div>
           ${renderAwardsGrouped(p.awards)}
+          ${buttonsInAwards ? buttonsHtml : ""}
         </div>
       `);
     }
@@ -409,24 +464,7 @@ const pressHtml =
 
     <div class="drawer-footer">
        
-        ${(Array.isArray(p.clips) && p.clips.length) || (Array.isArray(p.links) && p.links.length) ? `
-    <div class="clip-btns">
-    ${(p.clips || []).map((c, i) => `
-      <button class="clip-btn" type="button"
-              data-open-clip="${escapeHtml(id)}"
-              data-clip-index="${i}">
-        <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
-        ${escapeHtml(c.label || `Clip ${i+1}`)}
-      </button>
-    `).join("")}
-    ${(p.links || []).map((l) => `
-      <a class="clip-btn" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">
-        <svg class="clip-btn__icon" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1 L2 9 L9 5 z"/></svg>
-        ${escapeHtml(l.label)}
-      </a>
-    `).join("")}
-      </div>
-      ` : ``}
+        ${hasButtons && !buttonsInAwards ? buttonsHtml : ``}
 
 
         <button class="drawer-close" type="button" aria-label="Close" data-close-drawer>X</button>
@@ -546,7 +584,7 @@ document.addEventListener("keydown", (e) => {
       if (!p) return;
 
       const a = document.createElement("a");
-      a.className = "tile";
+      a.className = "tile" + (p.featured ? " tile--featured" : "");
       a.href = "#";
       a.dataset.id = id;
       a.setAttribute("aria-expanded", "false");

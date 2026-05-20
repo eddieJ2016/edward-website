@@ -21,3 +21,21 @@ node_modules/
 # Klim trial fonts — licensed for design exploration only,
 # not for production deployment. Keep these local.
 assets/fonts/trials/
+
+# Source-format frames — too heavy for the web; the converted JPGs
+# in assets/ are what the site actually uses.
+assets/*.tiff
+assets/*.tif
+assets/*.psd
+
+# Stray working files that ended up in the repo root over time.
+# Web-ready versions live in assets/ and are what get tracked.
+# Klim license folder contains personal invoice info — must stay private.
+/EDWARD_Profile01.jpg
+/Klim-Order-*
+/KlimTestFonts/
+/BLACK AS U R Thumbail/
+/PBS_logo_2019.svg
+/discovery-channel-4.svg
+/showtime-logo.svg
+/*.zip
