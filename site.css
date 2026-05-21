@@ -535,6 +535,15 @@ body::after{
   .drawer-panel + .drawer-panel{ border-left: 1px solid rgba(255,255,255,.10); }
   .drawer-panel:first-child{ padding-left: 0; }
   .drawer-panel:last-child{ padding-right: 0; }
+
+  /* Vertically center supporting panels (Awards / Press) against the metadata
+     column when their content is shorter. Excludes press-wide which spans
+     two columns and has its own internal grid. */
+  .drawer-cols .drawer-panel:not(:first-child):not(.press-wide){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 /* =========================================================================
@@ -693,6 +702,13 @@ body::after{
 .drawer-link:hover .list-top,
 .drawer-link:focus-visible .list-top{
   background-size: 100% 1px;
+}
+
+/* Press entries without a URL: render as plain text (no underline-on-hover) */
+.drawer-link.is-unlinked{ cursor: default; }
+.drawer-link.is-unlinked .list-top{
+  background-image: none;
+  transition: none;
 }
 
 .drawer-empty{

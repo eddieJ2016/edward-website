@@ -77,7 +77,7 @@
       duration: "—",
       credits: [
         { label: "Global Executive Editor", value: "Michael Walker" },
-        { label: "Creative & Edit", value: "Edward Radford" },
+        { label: "Creative + Edit", value: "Edward Radford" },
       ],
       awards: [
         { festival: "Financial Communications Society — 30th Portfolio Awards, May 2024", award: "Best Branded Content · Gold Award" },
@@ -126,6 +126,31 @@
       ],
       awards: [],
       press: [],
+    },
+
+    "black-beach": {
+      title: "Black Beach",
+      thumb: "assets/black-beach.jpg",
+      broadcasterLogo: [
+        { src: "assets/bbc4-logo.gif", alt: "BBC Four", className: "logo--lg" },
+        { src: "assets/svg/pbs.svg", alt: "PBS" },
+        { src: "assets/wide-angle-logo.png", alt: "Wide Angle" },
+      ],
+      broadcasterAlt: "BBC Four — PBS — Wide Angle",
+      broadcasterText: "—",
+      year: "2009",
+      duration: "50 min",
+      credits: [
+        { label: "Director", value: "Christopher Olgiati" },
+        { label: "Executive Producer", value: "Nick Fraser" },
+        { label: "Editor", value: "Edward Radford" },
+      ],
+      awards: [],
+      press: [
+        { outlet: "Official BBC Website", date: "", url: "https://www.bbc.co.uk/programmes/b00p5wl1" },
+        { outlet: "Official PBS Website", date: "", url: "https://www.pbs.org/wnet/wideangle/video/watch-full-episodes/once-upon-a-coup-full-episode/" },
+        { outlet: "The Sunday Times — A A Gill", date: "", quote: "The best programme of the week was Black Beach: Simon Mann’s African Coup, from the increasingly fine Storyville documentary strand …" },
+      ],
     },
 
     "gaddafi": {
@@ -195,6 +220,7 @@
     "gaddafi",
     "endgames",
     "shark",
+    "black-beach",
   ];
 
   // ===== HELPERS =====
@@ -307,16 +333,18 @@
     const renderPressItems = (arr) => arr.map((x) => {
   const outlet = escapeHtml(x.outlet);
   const date = escapeHtml(x.date);
-  const url = x.url ? escapeHtml(x.url) : "#";
-
-  return `
-    <li>
-      <a class="drawer-link${x.quote ? " has-quote" : ""}" href="${url}" target="_blank" rel="noopener">
+  const cls = `drawer-link${x.quote ? " has-quote" : ""}${x.url ? "" : " is-unlinked"}`;
+  const inner = `
         <div class="list-top">${outlet}</div>
         <div class="list-sub">${date}</div>
         ${x.quote ? `<div class="press-quote">${escapeHtml(x.quote)}</div>` : ``}
-      </a>
-    </li>`;
+  `;
+
+  const body = x.url
+    ? `<a class="${cls}" href="${escapeHtml(x.url)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<div class="${cls}">${inner}</div>`;
+
+  return `<li>${body}</li>`;
 }).join("");
 
 const splitPress = (arr) => {
