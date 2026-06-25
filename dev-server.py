@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Local dev server that disables browser caching. Not used in production."""
 import http.server
+import os
 import socketserver
 import sys
 
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8000))
 
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):

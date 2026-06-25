@@ -18,6 +18,9 @@ node_modules/
 .env
 .env.local
 
+# Claude Code local tooling (launch.json, etc.)
+.claude/
+
 # Klim trial fonts — licensed for design exploration only,
 # not for production deployment. Keep these local.
 assets/fonts/trials/
