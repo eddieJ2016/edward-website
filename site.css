@@ -1004,11 +1004,44 @@ body::after{
   border-radius: 2px;
 }
 
-/* Highlighted award names within prose */
-.about-text .award{
+/* Highlighted award names — inline in prose, and as the lead line of
+   each entry in the Selected awards list. */
+.award{
   color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.30);
   padding-bottom: 1px;
+}
+
+/* Selected awards list — two-column at desktop, single at mobile */
+.awards-list{
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  column-count: 2;
+  column-gap: 44px;
+}
+
+.awards-list li{
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin: 0 0 16px;
+}
+
+.awards-list .award{
+  display: inline-block;
+  line-height: 1.35;
+}
+
+.awards-context{
+  display: block;
+  margin-top: 4px;
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px){
+  .awards-list{ column-count: 1; }
 }
 
 @media (max-width: 900px){
