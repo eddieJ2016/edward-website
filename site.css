@@ -731,6 +731,25 @@ body::after{
 }
 .sublist li::before{ display: none !important; }
 
+/* Award statuette beside the awards list (e.g. Telly in the YoungArts drawer) */
+.awards-row{
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.awards-row .awards-col{ flex: 1 1 auto; min-width: 0; }
+.award-statuette{
+  flex: 0 0 auto;
+  height: 74px;
+  width: auto;
+  display: block;
+  margin-top: 2px;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.55));
+}
+@media (max-width: 900px){
+  .award-statuette{ height: 61px; }
+}
+
 /* =========================================================================
    Press-wide (no awards, lots of press)
    - Press panel spans two columns

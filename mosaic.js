@@ -28,6 +28,8 @@
       awards: [
         { festival: "Telly Awards — 47th Annual, 2026", award: "Campaign · Non-Scripted & Documentary · Silver" },
       ],
+      awardImage: "assets/telly-award.png",
+      awardImageAlt: "Telly Award statuette",
       press: [],
       clips: [
         { label: "Watch", kind: "youtube", id: "mbZ8c-c_oVc" },
@@ -84,7 +86,7 @@
       ],
       press: [],
       links: [
-        { label: "Watch on YouTube", url: "https://www.youtube.com/watch?v=qW1_A9zOHmI&list=PLGaYlBJIOoa89MTQobWX5SsCNR_gtJgHu" },
+        { label: "Watch on YouTube", url: "https://www.youtube.com/watch?v=n7_5PhXSl6I" },
       ],
     },
 
@@ -402,11 +404,17 @@ const pressHtml =
     const optionalPanels = [];
 
     if (hasAwards) {
+      const awardsInner = `${renderAwardsGrouped(p.awards)}${buttonsInAwards ? buttonsHtml : ""}`;
+      const awardsBody = p.awardImage
+        ? `<div class="awards-row">
+             <img class="award-statuette" src="${escapeHtml(p.awardImage)}" alt="${escapeHtml(p.awardImageAlt || "Award statuette")}" loading="lazy">
+             <div class="awards-col">${awardsInner}</div>
+           </div>`
+        : awardsInner;
       optionalPanels.push(`
         <div class="drawer-panel">
           <div class="panel-title">Awards</div>
-          ${renderAwardsGrouped(p.awards)}
-          ${buttonsInAwards ? buttonsHtml : ""}
+          ${awardsBody}
         </div>
       `);
     }
