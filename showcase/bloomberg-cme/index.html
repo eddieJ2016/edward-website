@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bloomberg × CME — Verticals · Edward Radford</title>
+  <meta name="description" content="Selected short-form editorial verticals from a multi-year series for Bloomberg Media Studios and CME Group. Edit + creative by Edward Radford.">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <style>
+    /* Bloomberg BW Haas Grotesk Black — matches chart.html titles.
+       Used with permission (Michael Walker / Bloomberg Media Studios). */
+    @font-face {
+      font-family: "BW Haas Grot CP Web 95 Blk";
+      src: url("haas-black.woff2") format("woff2"),
+           url("haas-black.woff")  format("woff");
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --bg: #0e0f12;
+      --fg: rgba(255,255,255,.95);
+      --fg-mid: rgba(255,255,255,.70);
+      --fg-dim: rgba(255,255,255,.55);
+      --line: rgba(255,255,255,.10);
+      --radius: 18px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ margin:0; }
+
+    body{
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Founders Grotesk", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding: 18px; /* matches frame inset — same as edwardradford.com main page */
+    }
+
+    /* Inset "matte" frame ON TOP — same as main site */
+    body::after{
+      content: "";
+      position: fixed;
+      inset: 18px;
+      border-radius: var(--radius);
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow:
+        0 0 0 9999px var(--bg),                 /* matte */
+        inset 0 0 0 1px rgba(255,255,255,.08),  /* inner highlight */
+        inset 0 0 0 2px rgba(0,0,0,.35);        /* subtle depth */
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .wrap{
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px clamp(16px, 3vw, 32px) 80px;
+    }
+
+    /* Award badge (FCS Gold, for the very body of work below) */
+    .award-badge{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin: 8px auto 36px;
+      color: #c9a962;
+      max-width: 520px;
+    }
+
+    .award-badge__wreath{
+      width: 76px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .award-badge__body{
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .award-badge__prize{
+      font-family: "BW Haas Grot CP Web 95 Blk", "Founders Grotesk", -apple-system, sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .award-badge__cat{
+      font-family: "Founders Grotesk", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      margin-top: 4px;
+      color: rgba(201, 169, 98, .82);
+    }
+
+    .award-badge__provenance{
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: rgba(201, 169, 98, .58);
+      margin-top: 8px;
+    }
+
+    header{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 36px;
+    }
+
+    .eyebrow{
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--fg-dim);
+    }
+
+    h1{
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      letter-spacing: .01em;
+      line-height: 1.05;
+    }
+
+    .lede{
+      margin: 8px 0 0;
+      color: var(--fg-mid);
+      font-size: clamp(14px, 1.5vw, 17px);
+      line-height: 1.45;
+      max-width: 68ch;
+    }
+
+    .credits{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      margin-top: 14px;
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+    }
+    .credits strong{ color: var(--fg); font-weight: 500; }
+
+    /* Selling-point highlights under the lede */
+    .highlights{
+      list-style: none;
+      margin: 16px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .highlights li{
+      position: relative;
+      padding-left: 22px;
+      font-size: 15px;
+      line-height: 1.4;
+      color: var(--fg-mid);
+      max-width: 62ch;
+    }
+    .highlights li::before{
+      content: "→";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #c9a962;
+      font-weight: 600;
+    }
+
+    /* Year sections */
+    .year-section + .year-section{
+      margin-top: 44px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+
+    .year-header{
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .year-num{
+      margin: 0;
+      font-family: "BW Haas Grot CP Web 95 Blk", "Founders Grotesk", -apple-system, sans-serif;
+      font-size: clamp(30px, 3.5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -.01em;
+      line-height: 1;
+    }
+
+    .year-sub{
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--fg-dim);
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1000px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px){ .grid{ grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+
+    .tile{
+      position: relative;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .tile::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.75) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .tile:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,.4);
+    }
+
+    .tile iframe{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      pointer-events: none;
+    }
+
+    /* YouTube embeds are 16:9 by default — scale up and center-crop to fill 9:16 */
+    .tile iframe.yt{
+      width: 300%;
+      height: 100%;
+      left: -100%;
+    }
+
+    .tile__label{
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 3;
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .01em;
+      line-height: 1.25;
+    }
+
+    .tile__num{
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      z-index: 3;
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: .1em;
+      color: var(--fg-dim);
+    }
+
+    /* Placeholder tiles — awaiting Vimeo uploads */
+    .tile--placeholder{
+      cursor: default;
+      background: transparent;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+      opacity: .82;
+    }
+    .tile--placeholder::before{ display: none; }
+    .tile--placeholder:hover{ transform: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.10); }
+    .tile__placeholder-mark{
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      color: rgba(255,255,255,.28);
+      font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
+      font-size: 22px;
+      letter-spacing: .35em;
+      padding-left: .35em; /* recentre optically */
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.94);
+      padding: 20px;
+    }
+    .lightbox[data-open="true"]{ display: flex; }
+
+    .lightbox__inner{
+      position: relative;
+      aspect-ratio: 9 / 16;
+      height: min(90vh, 780px);
+      max-width: 90vw;
+    }
+
+    .lightbox__inner iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 4px;
+    }
+
+    .lightbox__close{
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: transparent;
+      border: 0;
+      color: var(--fg);
+      font-size: 22px;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 6px 10px;
+      line-height: 1;
+    }
+    .lightbox__close:hover{ opacity: .7; }
+
+    footer{
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--fg-dim);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer a{
+      color: var(--fg-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+    }
+    footer a:hover{ color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="award-badge" aria-label="Financial Communications Society Gold Award">
+      <svg class="award-badge__wreath" viewBox="16 18 108 134" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor"><g><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g><g transform="translate(140,0) scale(-1,1)"><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g></g></svg>
+
+      <div class="award-badge__body">
+        <div class="award-badge__prize">Gold Award</div>
+        <div class="award-badge__cat">Best Branded Content</div>
+        <div class="award-badge__provenance">Financial Communications Society · 30th Portfolio Awards · 2024</div>
+      </div>
+
+      <svg class="award-badge__wreath" viewBox="16 18 108 134" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor"><g><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g><g transform="translate(140,0) scale(-1,1)"><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g></g></svg>
+    </div>
+
+    <header>
+      <span class="eyebrow">Selected work · 2023 – 2026</span>
+      <h1>Bloomberg × CME — Verticals</h1>
+      <p class="lede">A short-form editorial series for Bloomberg Media Studios and CME Group, covering markets, macro and monetary policy. Four seasons, newest-first — silent preview, click any tile for sound.</p>
+      <ul class="highlights">
+        <li>Fast turnaround — shipping same-day against breaking market events</li>
+        <li>A fresh, engaging visual language for financial storytelling</li>
+        <li>Standout audience engagement across Instagram &amp; TikTok</li>
+      </ul>
+      <div class="credits">
+        <span><strong>Lead Creative + Edit</strong> Edward Radford</span>
+        <span><strong>Global Executive Editor</strong> Michael Walker</span>
+      </div>
+    </header>
+
+    <section class="year-section" id="y-2026">
+      <div class="year-header">
+        <h2 class="year-num">2026</h2>
+      </div>
+      <div class="grid" data-year="2026"></div>
+    </section>
+
+    <section class="year-section" id="y-2025">
+      <div class="year-header">
+        <h2 class="year-num">2025</h2>
+      </div>
+      <div class="grid" data-year="2025"></div>
+    </section>
+
+    <section class="year-section" id="y-2024">
+      <div class="year-header">
+        <h2 class="year-num">2024</h2>
+      </div>
+      <div class="grid" data-year="2024"></div>
+    </section>
+
+    <section class="year-section" id="y-2023">
+      <div class="year-header">
+        <h2 class="year-num">2023</h2>
+      </div>
+      <div class="grid" data-year="2023"></div>
+    </section>
+
+    <section class="year-section" id="y-2022">
+      <div class="year-header">
+        <h2 class="year-num">2022</h2>
+      </div>
+      <div class="grid" data-year="2022"></div>
+    </section>
+
+    <footer>
+      <span>Silent previews via Vimeo and YouTube Shorts. Click any tile for full playback with sound.</span>
+      <span>© Bloomberg Media Studios</span>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" data-open="false" role="dialog" aria-modal="true" aria-label="Video">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">✕</button>
+    <div class="lightbox__inner" id="lightboxInner"></div>
+  </div>
+
+  <script>
+    // kind: "vimeo" | "youtube"
+    // For 2025 videos with both, we prefer vimeo (cleaner silent-autoplay experience).
+    const YEARS = [
+      {
+        year: 2026,
+        videos: [
+          { kind: "vimeo", id: "1209277422", label: "Hyperinflation" },
+          { kind: "vimeo", id: "1209280052", label: "De-dollarization" },
+          { kind: "youtube", id: "J8ks-dAPbJs", label: "AI" },
+          { kind: "youtube", id: "9aQe-EyaZsE", label: "Oil" }
+        ]
+      },
+      {
+        year: 2025,
+        videos: [
+          { kind: "youtube", id: "VhV8RWfetLA", label: "OPEC+ Slows" },
+          { kind: "youtube", id: "gMGnQkrVOx8", label: "Small Caps" },
+          { kind: "vimeo",   id: "1069577188", hash: "52026ff97f", label: "S&P 500" }
+        ]
+      },
+      {
+        year: 2024,
+        videos: [
+          { kind: "vimeo", id: "1209281180", label: "Gold & Rate Cuts" },
+          { kind: "vimeo", id: "1209281181", label: "Inflation Waves" },
+          { kind: "vimeo", id: "1209281182", label: "Fed v ECB" },
+          { kind: "vimeo", id: "1209281183", label: "Zero Rate Cuts?" }
+        ]
+      },
+      {
+        year: 2023,
+        videos: [
+          { kind: "vimeo", id: "880630251", label: "September CPI" },
+          { kind: "vimeo", id: "880301329", label: "USD Asian Banks" },
+          { kind: "vimeo", id: "857994196", label: "Credit Rating" },
+          { kind: "vimeo", id: "853785539", label: "Inversion" },
+          { kind: "vimeo", id: "852645833", label: "Gold Supply" },
+          { kind: "vimeo", id: "840943170", label: "Oil Demand" },
+          { kind: "vimeo", id: "839129646", label: "Inversion" },
+          { kind: "vimeo", id: "836323178", label: "M2" },
+          { kind: "vimeo", id: "821801715", label: "Tightening Cycles" },
+          { kind: "vimeo", id: "806072214", label: "Blue-White Collar" },
+          { kind: "vimeo", id: "802717131", label: "Interest Rates" }
+        ]
+      },
+      {
+        year: 2022,
+        videos: [
+          { kind: "placeholder", label: "" },
+          { kind: "placeholder", label: "" },
+          { kind: "placeholder", label: "" },
+          { kind: "placeholder", label: "" }
+        ]
+      }
+    ];
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxInner = document.getElementById("lightboxInner");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    function tileEmbedSrc(v){
+      if (v.kind === "vimeo") {
+        const h = v.hash ? `h=${v.hash}&` : "";
+        return `https://player.vimeo.com/video/${v.id}?${h}background=1&muted=1&loop=1&autoplay=1&title=0&byline=0&portrait=0`;
+      }
+      // youtube shorts silent-loop
+      return `https://www.youtube.com/embed/${v.id}?autoplay=1&mute=1&loop=1&playlist=${v.id}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&playsinline=1&rel=0`;
+    }
+
+    function lightboxEmbed(v){
+      if (v.kind === "vimeo") {
+        const h = v.hash ? `h=${v.hash}&` : "";
+        return `<iframe src="https://player.vimeo.com/video/${v.id}?${h}autoplay=1&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+      }
+      return `<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1&modestbranding=1&rel=0&playsinline=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    }
+
+    // Build tiles for each year section
+    YEARS.forEach(section => {
+      const grid = document.querySelector(`.grid[data-year="${section.year}"]`);
+      if (!grid) return;
+      section.videos.forEach((v, i) => {
+        const tile = document.createElement("div");
+        const isPlaceholder = v.kind === "placeholder";
+        tile.className = "tile" + (isPlaceholder ? " tile--placeholder" : "");
+        tile.dataset.kind = v.kind;
+        if (v.id) tile.dataset.id = v.id;
+        if (v.hash) tile.dataset.hash = v.hash;
+        if (!isPlaceholder) {
+          tile.setAttribute("role", "button");
+          tile.setAttribute("tabindex", "0");
+          tile.setAttribute("aria-label", `Play ${v.label}`);
+        } else {
+          tile.setAttribute("aria-label", "Placeholder — coming soon");
+        }
+        const num = String(i + 1).padStart(2, "0");
+        tile.innerHTML = isPlaceholder
+          ? `<span class="tile__num">${num}</span><span class="tile__placeholder-mark">···</span>`
+          : `<span class="tile__num">${num}</span><span class="tile__label">${v.label}</span>`;
+        grid.appendChild(tile);
+      });
+    });
+
+    // Lazy-init iframes as tiles come into view
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const tile = entry.target;
+        if (entry.isIntersecting && !tile.querySelector("iframe") && tile.dataset.kind !== "placeholder") {
+          const v = { kind: tile.dataset.kind, id: tile.dataset.id, hash: tile.dataset.hash };
+          const iframe = document.createElement("iframe");
+          iframe.src = tileEmbedSrc(v);
+          iframe.setAttribute("allow", "autoplay; encrypted-media");
+          iframe.setAttribute("loading", "lazy");
+          if (v.kind === "youtube") iframe.classList.add("yt");
+          tile.insertBefore(iframe, tile.firstChild);
+        }
+      });
+    }, { rootMargin: "300px" });
+
+    document.querySelectorAll(".tile").forEach((t) => io.observe(t));
+
+    // Lightbox
+    function openLightbox(v) {
+      lightboxInner.innerHTML = lightboxEmbed(v);
+      lightbox.dataset.open = "true";
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox() {
+      lightboxInner.innerHTML = "";
+      lightbox.dataset.open = "false";
+      document.body.style.overflow = "";
+    }
+    function tileToV(tile){
+      return { kind: tile.dataset.kind, id: tile.dataset.id, hash: tile.dataset.hash };
+    }
+
+    document.addEventListener("click", (e) => {
+      const tile = e.target.closest(".tile");
+      if (tile && tile.dataset.kind !== "placeholder") openLightbox(tileToV(tile));
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && e.target.classList?.contains("tile") && e.target.dataset.kind !== "placeholder") {
+        e.preventDefault();
+        openLightbox(tileToV(e.target));
+      }
+      if (e.key === "Escape" && lightbox.dataset.open === "true") closeLightbox();
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+  </script>
+</body>
+</html>
