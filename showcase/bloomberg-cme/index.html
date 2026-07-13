@@ -63,22 +63,31 @@
 
     /* Award badge (FCS Gold, for the very body of work below) */
     .award-badge{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      margin: 8px auto 36px;
+      position: relative;
+      width: 440px;
+      max-width: 92%;
+      aspect-ratio: 900 / 621;
+      margin: 8px auto 30px;
       color: #c9a962;
-      max-width: 520px;
     }
 
-    .award-badge__wreath{
-      width: 76px;
-      height: auto;
-      flex-shrink: 0;
+    .award-badge__laurels{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
     }
 
     .award-badge__body{
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       line-height: 1.15;
     }
@@ -376,15 +385,13 @@
 <body>
   <div class="wrap">
     <div class="award-badge" aria-label="Financial Communications Society Gold Award">
-      <svg class="award-badge__wreath" viewBox="16 18 108 134" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor"><g><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g><g transform="translate(140,0) scale(-1,1)"><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g></g></svg>
+      <img class="award-badge__laurels" src="fcs-laurels.png" alt="" aria-hidden="true">
 
       <div class="award-badge__body">
         <div class="award-badge__prize">Gold Award</div>
         <div class="award-badge__cat">Best Branded Content</div>
         <div class="award-badge__provenance">Financial Communications Society<br>30th Portfolio Awards · 2024</div>
       </div>
-
-      <svg class="award-badge__wreath" viewBox="16 18 108 134" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor"><g><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g><g transform="translate(140,0) scale(-1,1)"><path d="M59.02,139.69 Q53.02,130.69 50.02,123.69 L44.15,115.07 L39.71,104.52 L36.94,92.61 L36.00,80.00 L36.94,67.39 L39.71,55.48 L44.15,44.93 L50.02,36.31" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="M49.52,124.78 Q43.69,136.40 59.17,145.10 Q65.00,126.27 49.52,124.78 Z"/><path d="M43.43,116.04 Q35.46,126.18 49.56,136.57 Q57.54,119.59 43.43,116.04 Z"/><path d="M38.77,105.27 Q28.46,113.15 40.54,125.56 Q50.85,111.20 38.77,105.27 Z"/><path d="M35.82,93.03 Q23.33,97.54 32.43,112.03 Q44.91,101.40 35.82,93.03 Z"/><path d="M34.80,80.00 Q21.09,80.15 26.24,96.09 Q39.95,90.18 34.80,80.00 Z"/><path d="M35.82,66.97 Q22.42,62.77 23.50,78.91 Q36.90,77.70 35.82,66.97 Z"/><path d="M38.77,54.73 Q26.83,47.26 24.71,62.53 Q36.65,64.96 38.77,54.73 Z"/><path d="M43.43,43.96 Q33.33,34.48 29.10,48.45 Q39.21,53.26 43.43,43.96 Z"/><path d="M49.52,35.22 Q41.19,24.65 35.72,37.30 Q44.05,43.55 49.52,35.22 Z"/></g></g></svg>
     </div>
 
     <header>
@@ -481,26 +488,21 @@
       {
         year: 2023,
         videos: [
-          { kind: "vimeo", id: "880630251", label: "September CPI" },
-          { kind: "vimeo", id: "880301329", label: "USD Asian Banks" },
-          { kind: "vimeo", id: "857994196", label: "Credit Rating" },
           { kind: "vimeo", id: "853785539", label: "Inversion" },
+          { kind: "vimeo", id: "857994196", label: "Credit Rating" },
+          { kind: "vimeo", id: "880630251", label: "September CPI" },
           { kind: "vimeo", id: "852645833", label: "Gold Supply" },
-          { kind: "vimeo", id: "840943170", label: "Oil Demand" },
           { kind: "vimeo", id: "839129646", label: "Inversion" },
-          { kind: "vimeo", id: "836323178", label: "M2" },
-          { kind: "vimeo", id: "821801715", label: "Tightening Cycles" },
-          { kind: "vimeo", id: "806072214", label: "Blue-White Collar" },
-          { kind: "vimeo", id: "802717131", label: "Interest Rates" }
+          { kind: "vimeo", id: "821801715", label: "Tightening Cycles" }
         ]
       },
       {
         year: 2022,
         videos: [
-          { kind: "placeholder", label: "" },
-          { kind: "placeholder", label: "" },
-          { kind: "placeholder", label: "" },
-          { kind: "placeholder", label: "" }
+          { kind: "vimeo", id: "880301329", label: "USD Asian Banks" },
+          { kind: "vimeo", id: "840943170", label: "Oil Demand" },
+          { kind: "vimeo", id: "836323178", label: "M2" },
+          { kind: "vimeo", id: "806072214", label: "Blue-White Collar" }
         ]
       }
     ];
