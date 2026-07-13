@@ -64,10 +64,9 @@
     /* Award badge (FCS Gold, for the very body of work below) */
     .award-badge{
       position: relative;
-      width: 340px;
-      max-width: 92%;
+      width: 300px;
+      max-width: 100%;
       aspect-ratio: 900 / 621;
-      margin: 8px auto 30px;
       color: #c9a962;
     }
 
@@ -94,7 +93,7 @@
 
     .award-badge__prize{
       font-family: "BW Haas Grot CP Web 95 Blk", "Founders Grotesk", -apple-system, sans-serif;
-      font-size: 24px;
+      font-size: 27px;
       font-weight: 900;
       letter-spacing: .04em;
       text-transform: uppercase;
@@ -103,7 +102,7 @@
 
     .award-badge__cat{
       font-family: "Founders Grotesk", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: .01em;
       margin-top: 5px;
@@ -112,20 +111,32 @@
 
     .award-badge__provenance{
       font-family: "Satoshi", -apple-system, "SF Pro Display", Helvetica, Arial, sans-serif;
-      font-size: 8px;
+      font-size: 9px;
       text-transform: uppercase;
       letter-spacing: .09em;
       color: rgba(201, 169, 98, .58);
       margin-top: 8px;
     }
 
+    .hero{
+      display: flex;
+      align-items: center;
+      gap: clamp(28px, 5vw, 72px);
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 36px;
+    }
+    .hero header{ flex: 1 1 auto; min-width: 0; }
+    .hero .award-badge{ flex: 0 0 auto; }
+
+    @media (max-width: 760px){
+      .hero{ flex-direction: column; align-items: flex-start; gap: 28px; }
+    }
+
     header{
       display: flex;
       flex-direction: column;
       gap: 6px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 36px;
     }
 
     .eyebrow{
@@ -184,12 +195,12 @@
       max-width: 62ch;
     }
     .highlights li::before{
-      content: "→";
+      content: "•";
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 2px;
+      top: -0.5px;
       color: #c9a962;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Year sections */
@@ -384,30 +395,31 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="award-badge" aria-label="Financial Communications Society Gold Award">
-      <img class="award-badge__laurels" src="fcs-laurels.png" alt="" aria-hidden="true">
+    <div class="hero">
+      <header>
+        <span class="eyebrow">Selected work · 2023 – 2026</span>
+        <h1>Bloomberg × CME — Verticals</h1>
+        <p class="lede">A social-first, short-form editorial series for Bloomberg Media Studios and CME Group, covering markets, macro and monetary policy.</p>
+        <ul class="highlights">
+          <li>Fast turnaround — shipping same-day against breaking market events</li>
+          <li>A fresh, engaging visual language for financial storytelling</li>
+          <li>Standout audience engagement across Instagram &amp; TikTok</li>
+        </ul>
+        <div class="credits">
+          <span><strong>Lead Creative + Edit</strong> Edward Radford</span>
+          <span><strong>Global Executive Editor</strong> Michael Walker</span>
+        </div>
+      </header>
 
-      <div class="award-badge__body">
-        <div class="award-badge__prize">Gold Award</div>
-        <div class="award-badge__cat">Best Branded Content</div>
-        <div class="award-badge__provenance">Financial Communications Society<br>30th Portfolio Awards · 2024</div>
+      <div class="award-badge" aria-label="Financial Communications Society Gold Award">
+        <img class="award-badge__laurels" src="fcs-laurels.png" alt="" aria-hidden="true">
+        <div class="award-badge__body">
+          <div class="award-badge__prize">Gold Award</div>
+          <div class="award-badge__cat">Best Branded Content</div>
+          <div class="award-badge__provenance">Financial Communications Society<br>30th Portfolio Awards · 2024</div>
+        </div>
       </div>
     </div>
-
-    <header>
-      <span class="eyebrow">Selected work · 2023 – 2026</span>
-      <h1>Bloomberg × CME — Verticals</h1>
-      <p class="lede">A social-first, short-form editorial series for Bloomberg Media Studios and CME Group, covering markets, macro and monetary policy.</p>
-      <ul class="highlights">
-        <li>Fast turnaround — shipping same-day against breaking market events</li>
-        <li>A fresh, engaging visual language for financial storytelling</li>
-        <li>Standout audience engagement across Instagram &amp; TikTok</li>
-      </ul>
-      <div class="credits">
-        <span><strong>Lead Creative + Edit</strong> Edward Radford</span>
-        <span><strong>Global Executive Editor</strong> Michael Walker</span>
-      </div>
-    </header>
 
     <section class="year-section" id="y-2026">
       <div class="year-header">
@@ -473,13 +485,13 @@
         videos: [
           { kind: "youtube", id: "VhV8RWfetLA", label: "OPEC+ Slows" },
           { kind: "youtube", id: "gMGnQkrVOx8", label: "Small Caps" },
-          { kind: "vimeo",   id: "1069577188", hash: "52026ff97f", label: "S&P 500" }
+          { kind: "vimeo",   id: "1069577188", hash: "52026ff97f", label: "S&P 500" },
+          { kind: "vimeo",   id: "1209281180", label: "Gold & Rate Cuts" }
         ]
       },
       {
         year: 2024,
         videos: [
-          { kind: "vimeo", id: "1209281180", label: "Gold & Rate Cuts" },
           { kind: "vimeo", id: "1209281181", label: "Inflation Waves" },
           { kind: "vimeo", id: "1209281182", label: "Fed v ECB" },
           { kind: "vimeo", id: "1209281183", label: "Zero Rate Cuts?" }
