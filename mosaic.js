@@ -86,7 +86,7 @@
       ],
       press: [],
       links: [
-        { label: "Watch on YouTube", url: "https://www.youtube.com/watch?v=n7_5PhXSl6I" },
+        { label: "View the showcase", url: "/showcase/bloomberg-cme/" },
       ],
     },
 
