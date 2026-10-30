@@ -304,8 +304,15 @@ const DAYS = [
 
 // ── Map ─────────────────────────────────────────────────────────────────────
 const map = L.map('map', {zoomControl:true, minZoom:3, maxZoom:12, worldCopyJump:false});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd'}).addTo(map);
+// CARTO's basemaps began requiring an API key (Oct 2026); Esri's dark canvas is keyless.
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+L.tileLayer(ESRI+'World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+  {attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors', maxNativeZoom:16}).addTo(map);
+map.createPane('labels');                 // place labels: above the base, below routes
+map.getPane('labels').style.zIndex = 350;
+map.getPane('labels').style.pointerEvents = 'none';
+L.tileLayer(ESRI+'World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+  {maxNativeZoom:16, pane:'labels'}).addTo(map);
 
 const VIEWS = {
   all:[[20.5,-6.5],[46.0,56.5]],
