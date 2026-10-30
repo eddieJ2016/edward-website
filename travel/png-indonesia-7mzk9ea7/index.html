@@ -147,7 +147,7 @@ const STOPS = {
 };
 
 // ── Stages ──────────────────────────────────────────────────────────────────
-// d = first day, dl = day label. legs: [from, to, mode, viaStops?]
+// d = first day, dl = day label. legs: [from, to, mode, viaStops?]. warn: one note or a list.
 // Itinerary 1 follows the first Craft draft (30 Oct 2026); amber notes add the advisory checks.
 const DAYS_1 = [
  {d:1,  dl:'1',     sec:'Papua New Guinea', t:'Sydney → Port Moresby', at:'portmoresby',
@@ -210,7 +210,10 @@ const DAYS_1 = [
      ['t','road','Western Flores around Ruteng or nearby villages, if time allows'],
      ['t','boat','Two-day/overnight Komodo trip: Padar, Komodo or Rinca, snorkeling'],
      ['t','flight','Fly Labuan Bajo → Bali']],
-  warn:'Boat outings are weather-dependent: January–February can bring rough seas, cancelled boats and heavy rain. Keep a buffer day here.',
+  warn:['Boat outings are weather-dependent: January–February can bring rough seas, cancelled boats and heavy rain. Keep a buffer day here.',
+        'In January–February 2026 the park was shut to tourist boats for over a month (reopened around 4–5 Feb). Use a flexible operator; keep Labuan Bajo bookings refundable.',
+        'Since Feb 2026 tourist boats may not move in park waters after dark: check the overnight trip can still anchor overnight. Rinca has stayed open during short Komodo/Padar closures.',
+        'Visitor cap of about 1,000 a day since April 2026: book the park trip ahead.'],
   sleep:'Labuan Bajo / aboard'},
  {d:30, dl:'30–31', sec:'Bali', t:'Bali', at:'ubud',
   legs:[['denpasar','ubud','road']],
@@ -435,7 +438,7 @@ function openDay(day){
   cardbody.innerHTML = `
     <div class="where">Day${day.dl.includes('–')?'s':''} ${day.dl} · ${day.sec}</div>
     <h3>${day.t}</h3>
-    <ul>${items}${day.warn?`<li class="warn">${day.warn}</li>`:''}</ul>
+    <ul>${items}${[].concat(day.warn||[]).map(w=>`<li class="warn">${w}</li>`).join('')}</ul>
     <div class="sleep">Sleep: ${day.sleep}</div>`;
   card.style.display='block';
   // gently frame the stage's geography; long flights in and out only when
