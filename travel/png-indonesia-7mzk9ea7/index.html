@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Papua New Guinea &rarr; Indonesia — 42 Days</title>
+<title>Papua New Guinea &rarr; Indonesia</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
   :root{
@@ -68,6 +68,13 @@
   #views button{background:rgba(20,20,25,.92); color:var(--ink); border:1px solid #34343c;
     border-radius:6px; padding:7px 14px; font-size:12px; letter-spacing:.06em; cursor:pointer}
   #views button:hover{background:#2a2a32}
+  /* itinerary switch */
+  #itins{display:flex; gap:6px; padding:4px 18px 12px}
+  #itins button{flex:1; background:var(--panel2); color:var(--dim); border:1px solid #34343c; border-radius:6px;
+    padding:7px 10px; font-size:11.5px; line-height:1.35; text-align:left; cursor:pointer}
+  #itins button b{display:block; color:var(--ink); font-size:12.5px; letter-spacing:.06em}
+  #itins button:hover{background:#2a2a32}
+  #itins button.on{border-color:#8a877e; background:#2e2e38; color:#cfccc4}
   @media (max-width:820px){
     #app{flex-direction:column}
     #side{width:100%; max-height:38%}
@@ -84,17 +91,13 @@
 <div id="app">
   <nav id="side">
     <h1>PNG &rarr; Indonesia</h1>
-    <div class="sub">42 days &middot; Sydney &rarr; Port Moresby &rarr; Padang &rarr; Sydney &middot; draft route, no dates set</div>
+    <div class="sub" id="sub"></div>
+    <div id="itins"></div>
     <div id="daylist"></div>
   </nav>
   <div id="map"></div>
 </div>
-<div id="views">
-  <button data-v="all">Whole trip</button>
-  <button data-v="png">PNG &amp; Papua</button>
-  <button data-v="east">Raja Ampat &amp; Banda</button>
-  <button data-v="west">Flores &rarr; Sumatra</button>
-</div>
+<div id="views"></div>
 <div id="legend"></div>
 <div id="card"><span class="close">&times;</span><div id="cardbody"></div></div>
 
@@ -111,7 +114,8 @@ const MODES = {
 
 // ── Stops (geocoded with OSM Nominatim, 30 Oct 2026) ────────────────────────
 const STOPS = {
-  sydney:     {n:'Sydney (start & end)', ll:[-33.8698,151.2083]},
+  sydney:     {n:'Sydney',            ll:[-33.8698,151.2083]},
+  darwin:     {n:'Darwin',            ll:[-12.4604,130.8410]},
   portmoresby:{n:'Port Moresby',      ll:[-9.4743,147.1600]},
   goroka:     {n:'Goroka (or Mount Hagen)', ll:[-6.0730,145.3933]},
   wewak:      {n:'Wewak',             ll:[-3.5542,143.6271]},
@@ -144,8 +148,8 @@ const STOPS = {
 
 // ── Stages ──────────────────────────────────────────────────────────────────
 // d = first day, dl = day label. legs: [from, to, mode, viaStops?]
-// Content follows the Craft draft (30 Oct 2026); amber notes add the advisory checks.
-const DAYS = [
+// Itinerary 1 follows the first Craft draft (30 Oct 2026); amber notes add the advisory checks.
+const DAYS_1 = [
  {d:1,  dl:'1',     sec:'Papua New Guinea', t:'Sydney → Port Moresby', at:'portmoresby',
   legs:[['sydney','portmoresby','flight']],
   b:[['t','flight','Fly Sydney → Port Moresby']],
@@ -237,6 +241,32 @@ const DAYS = [
   sleep:'Bukittinggi'},
 ];
 
+// Itinerary 2 (30 Oct 2026): #1 as far as Komodo, then three Bali nights and home
+// via Darwin. Java and Sumatra drop out, and with them most of the Ramadan overlap.
+const DAYS_2 = [
+ ...DAYS_1.filter(day=> day.d <= 25),
+ {d:30, dl:'30–33', sec:'Bali', t:'Bali → Darwin', at:'ubud',
+  legs:[['denpasar','ubud','road'],['denpasar','darwin','flight']],
+  b:[['t','road','Airport → Ubud or Sidemen'],
+     'Three nights: temples, countryside, food and rest',
+     ['t','flight','Day 33: fly Denpasar → Darwin (usually direct, about 2½ h)']],
+  warn:'If the dates move later, check Nyepi (usually March): Bali shuts down for a day, airport included.',
+  sleep:'Ubud or Sidemen ×3'},
+];
+
+const V_PNG  = {l:'PNG & Papua',        b:[[-10.0,138.4],[-2.2,147.6]]};
+const V_EAST = {l:'Raja Ampat & Banda', b:[[-4.9,127.8],[-0.2,131.6]]};
+const ITINS = {
+  1:{name:'Itinerary 1', blurb:'42 days · on to Sumatra', days:DAYS_1,
+     sub:'42 days · Sydney → Port Moresby → Padang → Sydney · draft route, no dates set',
+     views:{all:{l:'Whole trip', b:[[-34.5, 99.5],[0.5,152.0]]}, png:V_PNG, east:V_EAST,
+            west:{l:'Flores → Sumatra', b:[[-9.0, 99.8],[-0.1,120.8]]}}},
+  2:{name:'Itinerary 2', blurb:'33 days · home via Darwin', days:DAYS_2,
+     sub:'33 days · Sydney → Port Moresby → Bali → Darwin · draft route, no dates set',
+     views:{all:{l:'Whole trip', b:[[-34.5,114.0],[0.5,152.0]]}, png:V_PNG, east:V_EAST,
+            west:{l:'Flores, Bali & Darwin', b:[[-13.2,114.5],[-7.8,131.5]]}}},
+};
+
 // ── Map ─────────────────────────────────────────────────────────────────────
 const map = L.map('map', {zoomControl:false, minZoom:3, maxZoom:12, worldCopyJump:false});
 L.control.zoom({position:'bottomright'}).addTo(map);   // top-left sits under the view buttons
@@ -264,14 +294,10 @@ mapbox.on('tileerror', ()=>{
     {maxNativeZoom:16, pane:'labels'}).addTo(map);
 });
 
-const VIEWS = {
-  all :[[-34.5, 99.5],[0.5,152.0]],
-  png :[[-10.0,138.4],[-2.2,147.6]],
-  east:[[-4.9,127.8],[-0.2,131.6]],
-  west:[[-9.0, 99.8],[-0.1,120.8]],
-};
-const fitAll = ()=> map.fitBounds(VIEWS.all, {padding:[24,24]});
-fitAll();
+let IT = null;                              // the itinerary on show
+const routeLayer = L.layerGroup().addTo(map);  // its legs and markers
+let legLayers = {};                        // d -> layers[]
+const fitAll = ()=> map.fitBounds(IT.views.all.b, {padding:[24,24]});
 // The container can be sized late (embedded panes resize after load). Keep
 // re-fitting on every resize until the user first touches the map.
 let userTouched = false;
@@ -279,16 +305,12 @@ map.getContainer().addEventListener('pointerdown', ()=>{ userTouched = true; }, 
 const refit = ()=>{ map.invalidateSize(); if (!userTouched) fitAll(); };
 window.addEventListener('load', ()=>{ refit(); setTimeout(refit, 250); });
 new ResizeObserver(refit).observe(document.getElementById('map'));
-document.querySelectorAll('#views button').forEach(b=>{
-  b.onclick = ()=>{ userTouched = true; map.fitBounds(VIEWS[b.dataset.v], {padding:[24,24]}); };
-});
 
 // legend
 document.getElementById('legend').innerHTML = Object.values(MODES).map(m=>
   `<span><i style="border-color:${m.c}" class="${m.dash?'dash':''}"></i>${m.label}</span>`).join('');
 
 // ── Legs (polylines) ────────────────────────────────────────────────────────
-const legLayers = {};   // d -> layers[]
 function legPath(from, to, via, mode){
   const pts = [STOPS[from].ll, ...(via||[]).map(v=>STOPS[v].ll), STOPS[to].ll];
   if (mode==='flight' && pts.length===2){        // curved arc for flights
@@ -302,52 +324,82 @@ function legPath(from, to, via, mode){
   }
   return pts;
 }
-DAYS.forEach(day=>{
-  (day.legs||[]).forEach(([f,t,mode,via])=>{
-    const m = MODES[mode];
-    const line = L.polyline(legPath(f,t,via,mode), {
-      color:m.c, weight:3, opacity:.75, dashArray:m.dash||null}).addTo(map);
-    line.on('click', ()=> openDay(day));
-    (legLayers[day.d] = legLayers[day.d]||[]).push(line);
-  });
-});
+// ── Draw one itinerary: legs, markers, sidebar, view buttons ────────────────
+function render(key){
+  if (activeDay){ card.style.display='none'; setActive(null); }
+  IT = ITINS[key];
+  routeLayer.clearLayers(); legLayers = {};
+  const DAYS = IT.days;
 
-// ── Stop markers, numbered by first day slept there ─────────────────────────
-const firstDay = {};
-DAYS.forEach(day=>{ if(!(day.at in firstDay)) firstDay[day.at]=day.d; });
-Object.entries(STOPS).forEach(([id,s])=>{
-  if (s.via) return;                       // waypoints get no marker
-  const label = s.ex ? '·' : (firstDay[id] ?? '·');
-  const mk = L.marker(s.ll, {icon: L.divIcon({className:'',
-    html:`<div class="stopmark ${s.ex?'excursion':''}" id="mk-${id}">${label}</div>`,
-    iconSize:[26,26], iconAnchor:[13,13]})}).addTo(map);
-  mk.bindTooltip(s.n, {direction:'top', offset:[0,-14]});
-  mk.on('click', ()=>{
-    const day = DAYS.find(x=>x.at===id)
-             || DAYS.find(x=>(x.legs||[]).some(l=>l[1]===id))
-             || DAYS.find(x=>(x.legs||[]).some(l=>l[0]===id));
-    if (day) openDay(day);
+  DAYS.forEach(day=>{
+    (day.legs||[]).forEach(([f,t,mode,via])=>{
+      const m = MODES[mode];
+      const line = L.polyline(legPath(f,t,via,mode), {
+        color:m.c, weight:3, opacity:.75, dashArray:m.dash||null}).addTo(routeLayer);
+      line.on('click', ()=> openDay(day));
+      (legLayers[day.d] = legLayers[day.d]||[]).push(line);
+    });
   });
-});
 
-// ── Sidebar ─────────────────────────────────────────────────────────────────
-const list = document.getElementById('daylist');
-let lastSec = null;
-DAYS.forEach(day=>{
-  if (day.sec!==lastSec){
-    lastSec = day.sec;
-    const h = document.createElement('div'); h.className='section';
-    h.innerHTML = `<h2>${day.sec}</h2>`; list.appendChild(h);
-  }
-  const el = document.createElement('div');
-  el.className='day'; el.id=`day-${day.d}`;
-  const dots = [...new Set((day.legs||[]).map(l=>l[2]))]
-    .map(m=>`<span class="dot" style="background:${MODES[m].c}"></span>`).join('');
-  el.innerHTML = `<span class="n">${day.dl}</span><span>${day.t}</span>
-                  <span class="modes">${dots}</span>`;
-  el.onclick = ()=> openDay(day);
-  list.appendChild(el);
-});
+  // stop markers, numbered by first day slept there; only stops this itinerary uses
+  const firstDay = {}, used = new Set();
+  DAYS.forEach(day=>{
+    if(!(day.at in firstDay)) firstDay[day.at]=day.d;
+    used.add(day.at);
+    (day.legs||[]).forEach(([f,t])=>{ used.add(f); used.add(t); });
+  });
+  Object.entries(STOPS).forEach(([id,s])=>{
+    if (s.via || !used.has(id)) return;    // waypoints get no marker
+    const label = s.ex ? '·' : (firstDay[id] ?? '·');
+    const mk = L.marker(s.ll, {icon: L.divIcon({className:'',
+      html:`<div class="stopmark ${s.ex?'excursion':''}" id="mk-${id}">${label}</div>`,
+      iconSize:[26,26], iconAnchor:[13,13]})}).addTo(routeLayer);
+    mk.bindTooltip(s.n, {direction:'top', offset:[0,-14]});
+    mk.on('click', ()=>{
+      const day = DAYS.find(x=>x.at===id)
+               || DAYS.find(x=>(x.legs||[]).some(l=>l[1]===id))
+               || DAYS.find(x=>(x.legs||[]).some(l=>l[0]===id));
+      if (day) openDay(day);
+    });
+  });
+
+  // sidebar
+  const list = document.getElementById('daylist');
+  list.innerHTML = '';
+  let lastSec = null;
+  DAYS.forEach(day=>{
+    if (day.sec!==lastSec){
+      lastSec = day.sec;
+      const h = document.createElement('div'); h.className='section';
+      h.innerHTML = `<h2>${day.sec}</h2>`; list.appendChild(h);
+    }
+    const el = document.createElement('div');
+    el.className='day'; el.id=`day-${day.d}`;
+    const dots = [...new Set((day.legs||[]).map(l=>l[2]))]
+      .map(m=>`<span class="dot" style="background:${MODES[m].c}"></span>`).join('');
+    el.innerHTML = `<span class="n">${day.dl}</span><span>${day.t}</span>
+                    <span class="modes">${dots}</span>`;
+    el.onclick = ()=> openDay(day);
+    list.appendChild(el);
+  });
+
+  // view buttons
+  const views = document.getElementById('views');
+  views.innerHTML = '';
+  Object.values(IT.views).forEach(v=>{
+    const b = document.createElement('button');
+    b.textContent = v.l;
+    b.onclick = ()=>{ userTouched = true; map.fitBounds(v.b, {padding:[24,24]}); };
+    views.appendChild(b);
+  });
+
+  document.getElementById('sub').textContent = IT.sub;
+  document.title = `Papua New Guinea → Indonesia — ${IT.name}`;
+  document.querySelectorAll('#itins button').forEach(b=>
+    b.classList.toggle('on', b.dataset.k===String(key)));
+  history.replaceState(null, '', '#'+key);  // a shared link opens this itinerary
+  fitAll();
+}
 
 // ── Detail card + highlighting ──────────────────────────────────────────────
 const card = document.getElementById('card'), cardbody = document.getElementById('cardbody');
@@ -399,6 +451,15 @@ function openDay(day){
   const pad = narrow ? {paddingTopLeft:[0,90], paddingBottomRight:[0, card.offsetHeight+16]} : {};
   if (pts.length>1) map.fitBounds(L.latLngBounds(pts).pad(narrow?0.3:0.55), pad);
 }
+
+// ── Itinerary switch (#1 or #2 in the address opens that one; newest by default) ─
+document.getElementById('itins').innerHTML = Object.entries(ITINS).map(([k,it])=>
+  `<button data-k="${k}"><b>${it.name}</b>${it.blurb}</button>`).join('');
+document.querySelectorAll('#itins button').forEach(b=>{
+  b.onclick = ()=> render(b.dataset.k);
+});
+const keys = Object.keys(ITINS);
+render(keys.includes(location.hash.slice(1)) ? location.hash.slice(1) : keys[keys.length-1]);
 </script>
 </body>
 </html>
