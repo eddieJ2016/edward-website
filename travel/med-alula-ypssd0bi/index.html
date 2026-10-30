@@ -63,7 +63,8 @@
   #legend span{display:flex; align-items:center; gap:6px; color:#cfccc4}
   #legend i{display:inline-block; width:18px; height:0; border-top:3px solid}
   #legend i.dash{border-top-style:dashed}
-  #views{position:absolute; left:356px; top:16px; z-index:1000; display:flex; gap:8px}
+  #views{position:absolute; left:356px; top:16px; z-index:1000; display:flex; gap:8px; flex-wrap:wrap;
+    max-width:calc(100% - 380px)}
   #views button{background:rgba(20,20,25,.92); color:var(--ink); border:1px solid #34343c;
     border-radius:6px; padding:7px 14px; font-size:12px; letter-spacing:.06em; cursor:pointer}
   #views button:hover{background:#2a2a32}
@@ -75,7 +76,11 @@
     #app{flex-direction:column}
     #side{width:100%; max-height:38%}
     #legend{left:16px; max-width:calc(100% - 32px)}
-    #views{left:16px}
+    /* keep the buttons and card on the map, below the stacked sidebar */
+    #views{left:16px; top:calc(38% + 12px); max-width:calc(100% - 32px); gap:6px}
+    #views button{padding:6px 10px; font-size:11px}
+    #card{left:16px; right:16px; width:auto; top:auto; bottom:16px; max-height:44%}
+    .leaflet-control-zoom{display:none}   /* pinch-zoom on phones; the legend sits there */
   }
 </style>
 </head>
@@ -303,7 +308,8 @@ const DAYS = [
 ];
 
 // ── Map ─────────────────────────────────────────────────────────────────────
-const map = L.map('map', {zoomControl:true, minZoom:3, maxZoom:12, worldCopyJump:false});
+const map = L.map('map', {zoomControl:false, minZoom:3, maxZoom:12, worldCopyJump:false});
+L.control.zoom({position:'bottomright'}).addTo(map);   // top-left sits under the view buttons
 // CARTO's basemaps began requiring an API key (Oct 2026); Esri's dark canvas is keyless.
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
 L.tileLayer(ESRI+'World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
@@ -453,7 +459,11 @@ function openDay(dayOrNum){
   (day.legs||[]).forEach(([f,t,,via])=>{
     pts.push(STOPS[f].ll, STOPS[t].ll, ...(via||[]).map(v=>STOPS[v].ll));
   });
-  if (pts.length>1) map.fitBounds(L.latLngBounds(pts).pad(0.55));
+  // on phones the card covers the bottom of the map: frame the day above it
+  const narrow = matchMedia('(max-width:820px)').matches;
+  const pad = narrow ? {paddingTopLeft:[0,90], paddingBottomRight:[0, card.offsetHeight+44]} : {};  // +marker
+  if (pts.length>1) map.fitBounds(L.latLngBounds(pts).pad(narrow?0.3:0.55), pad);
+  else if (narrow)  map.panInside(pts[0], pad);       // a stay-put day: just keep its stop in view
 }
 
 // ── Variant toggle ──────────────────────────────────────────────────────────
