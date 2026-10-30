@@ -310,15 +310,29 @@ const DAYS = [
 // ── Map ─────────────────────────────────────────────────────────────────────
 const map = L.map('map', {zoomControl:false, minZoom:3, maxZoom:12, worldCopyJump:false});
 L.control.zoom({position:'bottomright'}).addTo(map);   // top-left sits under the view buttons
-// CARTO's basemaps began requiring an API key (Oct 2026); Esri's dark canvas is keyless.
-const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
-L.tileLayer(ESRI+'World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-  {attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors', maxNativeZoom:16}).addTo(map);
-map.createPane('labels');                 // place labels: above the base, below routes
-map.getPane('labels').style.zIndex = 350;
-map.getPane('labels').style.pointerEvents = 'none';
-L.tileLayer(ESRI+'World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
-  {maxNativeZoom:16, pane:'labels'}).addTo(map);
+// Basemap: Mapbox dark (crisp on Retina). If Mapbox refuses the tiles (offline, token
+// revoked or URL-restricted, quota), fall back to Esri's keyless dark canvas.
+// (CARTO's basemaps began requiring an API key in Oct 2026.)
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWR3YXJkanJhZGZvcmQiLCJhIjoiY212dW5kNGQxMDlreTJ4cHo5eDl6M2J3cyJ9.GR7NMsH6HE-dA-gC2HI7pg';
+const mapbox = L.tileLayer(
+  'https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/512/{z}/{x}/{y}{r}?access_token='+MAPBOX_TOKEN,
+  {tileSize:512, zoomOffset:-1,
+   attribution:'&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> '+
+     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> '+
+     '<a href="https://www.mapbox.com/map-feedback/">Improve this map</a>'}).addTo(map);
+let tileErrors = 0;
+mapbox.on('tileerror', ()=>{
+  if (++tileErrors !== 3) return;          // a stray failure is not a refusal
+  map.removeLayer(mapbox);
+  const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+  L.tileLayer(ESRI+'World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    {attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors', maxNativeZoom:16}).addTo(map);
+  map.createPane('labels');               // place labels: above the base, below routes
+  map.getPane('labels').style.zIndex = 350;
+  map.getPane('labels').style.pointerEvents = 'none';
+  L.tileLayer(ESRI+'World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+    {maxNativeZoom:16, pane:'labels'}).addTo(map);
+});
 
 const VIEWS = {
   all:[[20.5,-6.5],[46.0,56.5]],
