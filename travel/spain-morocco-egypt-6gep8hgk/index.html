@@ -104,6 +104,8 @@
   .tot td{color:#cfccc4}
   .tot .all td{color:var(--ink); font-weight:700}
   .tot .blank{color:#55534c}
+  .split{max-width:420px}
+  .lg .fine{font-size:12px; margin-top:10px}
   @media (max-width:820px){
     #app{flex-direction:column}
     .lg{padding:18px 16px 44px}
@@ -151,7 +153,10 @@
   <div class="lg">
     <h1>Trip #1 ledger</h1>
     <p class="sub">What the bookings and statements show for 8&ndash;22 January 2026. Date is the day it happened, not the day it was paid. Amounts stay in the currency charged and are not converted. A question mark in Who paid means likely but not proven. A dash means the cost is not recorded. Restaurants, fuel and entry tickets paid on the road are mostly missing.</p>
-    <h2>Totals</h2>
+    <h2>Overall split, approx. US dollars</h2>
+    <div class="totwrap"><table class="tot split" id="split"></table></div>
+    <p class="sub fine" id="splitnote"></p>
+    <h2>Totals by currency</h2>
     <div class="totwrap"><table class="tot" id="totals"></table></div>
     <h2>Every expense</h2>
     <table class="led">
@@ -476,15 +481,16 @@ function openDay(day){
 fitAll();
 
 // ── Ledger (copied from the Craft page, 1 Nov 2026; its Notes column stays there) ─
-// [January date, place, vendor, who paid, item, amount, currency]; null = not recorded.
+// [January date, place, vendor, who paid, item, amount, currency, US dollars charged if known];
+// null = not recorded.
 const LEDGER = [
  [8, "New York → Madrid", "Booking.com (Air Europa UX92)", "Edward", "Flights for two, plus XCover insurance", 901.05, "USD"],
  [8, "New York → Madrid", "Air Europa upgrade bid", "?", "Extra legroom bid for two", null, null],
- [9, "Madrid", "Hotel Mediodía", "Edward", "1 night", 125.40, "EUR"],
+ [9, "Madrid", "Hotel Mediodía", "Edward", "1 night", 125.40, "EUR", 147.95],
  [9, "Madrid", "My Top Tour (Reina Sofía)", "Edward", "Museum entry, 3:00 PM", 28.09, "USD"],
  [10, "Madrid → Granada", "Renfe", "Holly?", "AVE for two", 132.30, "EUR"],
  [10, "Granada", "Hotel Casa Capitel Nazarí", "Holly?", "2 nights with breakfast", 191.77, "EUR"],
- [11, "Granada", "Alhambra", "Edward", "Two tickets, Nasrid Palaces at 3:00 PM", 43.27, "EUR"],
+ [11, "Granada", "Alhambra", "Edward", "Two tickets, Nasrid Palaces at 3:00 PM", 43.27, "EUR", 55.28],
  [12, "Granada → Algeciras", "ALSA", "Holly?", "Bus for two", 71.96, "EUR"],
  [12, "Algeciras → Gibraltar", "Cab", "?", "Cab to the hotel", null, null],
  [12, "Gibraltar", "Bristol Hotel", "Holly?", "1 night, bed and breakfast", 105.45, "GBP"],
@@ -493,17 +499,17 @@ const LEDGER = [
  [13, "Tangier → Marrakesh", "ONCF", "Holly?", "Two seats booked online", 809.14, "MAD"],
  [13, "Tangier → Marrakesh", "ONCF refund", "Holly?", "Refund of both seats", -630.00, "MAD"],
  [13, "Tangier", "ONCF, at the station", "?", "Couchette tickets, probably", null, null],
- [14, "Marrakesh", "Riad & Spa Bahia Salam", "Edward", "1 night", 104.00, "EUR"],
+ [14, "Marrakesh", "Riad & Spa Bahia Salam", "Edward", "1 night", 104.00, "EUR", 126.79],
  [15, "Marrakesh", "Riad & Spa Bahia Salam", "Edward", "Charged at the riad, not itemised", 180.88, "USD"],
- [15, "Marrakesh", "Hertz (STARC)", "Edward", "Dacia Duster, 4 days, prepaid part", 2402.68, "MAD"],
+ [15, "Marrakesh", "Hertz (STARC)", "Edward", "Dacia Duster, 4 days, prepaid part", 2402.68, "MAD", 271.00],
  [15, "Marrakesh", "Hertz (STARC)", "Holly", "Balance at the counter", 620.42, "MAD"],
- [15, "Dadès", "Kasbah Tizzarouine", "Edward", "1 night", 103.28, "EUR"],
+ [15, "Dadès", "Kasbah Tizzarouine", "Edward", "1 night", 103.28, "EUR", 125.91],
  [16, "Merzouga", "Moonlight Luxury Camp (Morocco Countryside Tours)", "Edward", "Camp bill: 1 night in a tent, plus extras?", 446.19, "USD"],
  [17, "Zagora", "Zagora hotel", "?", "1 night", null, null],
- [18, "Marrakesh → Casablanca", "ONCF", "Edward", "Two 1st class seats", 442.66, "MAD"],
+ [18, "Marrakesh → Casablanca", "ONCF", "Edward", "Two 1st class seats", 442.66, "MAD", 48.00],
  [18, "Casablanca airport", "Pomme de Pain", "Edward", "Food at Terminal 2", 32.56, "USD"],
  [19, "Casablanca → Cairo", "Trip.com (EgyptAir MS862)", "Holly", "Flights for two", 1191.80, "USD"],
- [19, "Cairo airport → hostel", "Booking.com Rides", "Edward", "Airport taxi", 26.20, "EUR"],
+ [19, "Cairo airport → hostel", "Booking.com Rides", "Edward", "Airport taxi", 26.20, "EUR", 30.47],
  [19, "Cairo", "Arabian Nights Hostel", "Edward", "2 nights with breakfast", 76.51, "USD"],
  [19, "Zamalek, Cairo", "Social Specialty Coffee", "Edward", "Coffee", 8.56, "USD"],
  [19, "Cairo", "Uber", "Holly", "Within Zamalek, 6:34 PM", 79.99, "EGP"],
@@ -513,7 +519,7 @@ const LEDGER = [
  [20, "Giza → Cairo", "Uber", "Holly", "To Zamalek, 9:44 PM", 389.94, "EGP"],
  [20, "Cairo", "Uber", "Holly", "Zamalek → hostel, 10:37 PM", 319.99, "EGP"],
  [21, "Cairo", "Uber", "Holly", "Hostel → airport, 10:21 AM", 500.06, "EGP"],
- [21, "Online, from Cairo", "Australian ETA", "Edward", "Entry authority for both", 40.00, "AUD"],
+ [21, "Online, from Cairo", "Australian ETA", "Edward", "Entry authority for both", 40.00, "AUD", 27.00],
  [21, "Cairo → Doha", "Qatar Airways QR1304", "Holly", "Flights for two", 520.50, "USD"],
  [21, "Doha → Sydney", "Travel Booking (Hopper), QR908", "Emma?", "Flights for two, Economy Comfort", 5513.86, "AUD"],
  [21, "Doha airport", "Giraffe", "Edward", "Meal during the connection", 76.75, "USD"],
@@ -537,6 +543,23 @@ document.getElementById('totals').innerHTML =
   `<thead><tr><th>Who paid</th>${CURS.map(c=>`<th class="num">${c}</th>`).join('')}</tr></thead><tbody>`+
   ['Edward','Holly','Holly?','Emma?'].map(w=> totalRow(w, r=> r[3]===w)).join('')+
   totalRow('All rows', ()=>true, 'all')+'</tbody>';
+
+// Overall split: real dollars where known, otherwise approximate rates for the trip dates.
+const FX = {USD:1, EUR:1.18, GBP:1.35, MAD:0.109, EGP:0.021, AUD:0.68};
+const usd = r=> r[5]===null ? 0 : (r[7] ?? r[5]*FX[r[6]]);
+const usdSum = test=> LEDGER.filter(test).reduce((a,r)=> a+usd(r), 0);
+const SPLIT = [['Edward', r=> r[3]==='Edward'], ['Holly', r=> r[3]==='Holly'], ['TBC', r=> r[3]==='Holly?' || r[3]==='?']]
+  .map(([label,test])=> [label, usdSum(test)]);
+const splitTotal = SPLIT.reduce((a,[,v])=> a+v, 0);
+const dollars = n=> '$'+Math.round(n).toLocaleString('en-US');
+document.getElementById('split').innerHTML =
+  '<thead><tr><th>Who paid</th><th class="num">Approx. USD</th><th class="num">Share</th></tr></thead><tbody>'+
+  SPLIT.map(([label,v])=> `<tr><td>${label}</td><td class="num">${dollars(v)}</td><td class="num">${Math.round(v/splitTotal*100)}%</td></tr>`).join('')+
+  `<tr class="all"><td>Total</td><td class="num">${dollars(splitTotal)}</td><td class="num">100%</td></tr></tbody>`;
+document.getElementById('splitnote').textContent =
+  'Uses the US dollars actually charged where a statement or repayment shows them, otherwise €1 = $1.18, £1 = $1.35, '+
+  '1 MAD = $0.109, 1 EGP = $0.021, A$1 = $0.68. TBC is every row with a question mark in Who paid. '+
+  'Leaves out the Doha → Sydney flights, the Sydney Airbnb, bank fees and any row with no amount.';
 
 // ── Tabs (#ledger in the address opens the ledger) ──────────────────────────
 function showTab(name){
