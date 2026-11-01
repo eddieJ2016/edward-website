@@ -521,7 +521,7 @@ const LEDGER = [
  [21, "Cairo", "Uber", "Holly", "Hostel → airport, 10:21 AM", 500.06, "EGP"],
  [21, "Online, from Cairo", "Australian ETA", "Edward", "Entry authority for both", 40.00, "AUD", 27.00],
  [21, "Cairo → Doha", "Qatar Airways QR1304", "Holly", "Flights for two", 520.50, "USD"],
- [21, "Doha → Sydney", "Travel Booking (Hopper), QR908", "Emma?", "Flights for two, Economy Comfort", 5513.86, "AUD"],
+ [21, "Doha → Sydney", "Travel Booking (Hopper), QR908", "Christine (gift)", "Flights for two, Economy Comfort", 5513.86, "AUD"],
  [21, "Doha airport", "Giraffe", "Edward", "Meal during the connection", 76.75, "USD"],
  [21, "QR908", "Wi-Fi Onboard", "Edward", "Flight Wi-Fi", 10.00, "USD"],
  [21, "US → Sydney", "Send My Bag (DHL)", "Edward", "Overweight charge, 17 lb over", 50.00, "USD"],
@@ -541,7 +541,7 @@ const totalRow = (label,test,cls='')=> `<tr class="${cls}"><td>${label}</td>${su
   `<td class="num ${Math.abs(v)<.005?'blank':''}">${Math.abs(v)<.005?'–':money(v)}</td>`).join('')}</tr>`;
 document.getElementById('totals').innerHTML =
   `<thead><tr><th>Who paid</th>${CURS.map(c=>`<th class="num">${c}</th>`).join('')}</tr></thead><tbody>`+
-  ['Edward','Holly','Holly?','Emma?'].map(w=> totalRow(w, r=> r[3]===w)).join('')+
+  ['Edward','Holly','Holly?','Emma?','Christine (gift)'].map(w=> totalRow(w, r=> r[3]===w)).join('')+
   totalRow('All rows', ()=>true, 'all')+'</tbody>';
 
 // Overall split: real dollars where known, otherwise approximate rates for the trip dates.
@@ -559,7 +559,7 @@ document.getElementById('split').innerHTML =
 document.getElementById('splitnote').textContent =
   'Uses the US dollars actually charged where a statement or repayment shows them, otherwise €1 = $1.18, £1 = $1.35, '+
   '1 MAD = $0.109, 1 EGP = $0.021, A$1 = $0.68. TBC is every row with a question mark in Who paid. '+
-  'Leaves out the Doha → Sydney flights, the Sydney Airbnb, bank fees and any row with no amount.';
+  'Leaves out the Doha → Sydney flights (a gift), the Sydney Airbnb, bank fees and any row with no amount.';
 
 // ── Tabs (#ledger in the address opens the ledger) ──────────────────────────
 function showTab(name){
