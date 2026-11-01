@@ -14,7 +14,18 @@
   *{box-sizing:border-box; margin:0; padding:0}
   html,body{height:100%; background:var(--bg); color:var(--ink);
     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
-  #app{display:flex; height:100%}
+  body{display:flex; flex-direction:column}
+  /* Map / Ledger tabs */
+  #tabs{flex:none; display:flex; gap:4px; height:44px; padding:0 8px; background:var(--panel);
+    border-bottom:1px solid #2c2c33}
+  #tabs button{background:none; border:0; border-bottom:2px solid transparent; color:var(--dim);
+    padding:2px 14px 0; font:inherit; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+  #tabs button:hover{color:var(--ink)}
+  #tabs button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--ink)}
+  #tabs button:focus-visible{outline:2px solid var(--ink); outline-offset:-3px}
+  #pane-map{position:relative; flex:1; min-height:0}
+  #pane-ledger{flex:1; min-height:0; overflow:auto; display:none}
+  #app{position:absolute; inset:0; display:flex}
   #side{width:340px; min-width:280px; overflow-y:auto; background:var(--panel);
     border-right:1px solid #2c2c33; padding:18px 0 40px}
   #side h1{font-size:17px; letter-spacing:.08em; padding:0 18px 4px; text-transform:uppercase}
@@ -68,8 +79,46 @@
   #views button{background:rgba(20,20,25,.92); color:var(--ink); border:1px solid #34343c;
     border-radius:6px; padding:7px 14px; font-size:12px; letter-spacing:.06em; cursor:pointer}
   #views button:hover{background:#2a2a32}
+  /* ledger */
+  .lg{max-width:1040px; margin:0 auto; padding:22px 24px 56px}
+  .lg h1{font-size:17px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px}
+  .lg .sub{font-size:13px; line-height:1.5; color:var(--dim); max-width:72ch}
+  .lg h2{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); margin:26px 0 8px}
+  .lg table{width:100%; border-collapse:collapse; font-size:13.5px; line-height:1.35}
+  .lg th{font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+    text-align:left; padding:8px 14px 8px 0; border-bottom:1px solid #34343c; background:var(--bg); white-space:nowrap}
+  .lg td{padding:8px 14px 8px 0; border-bottom:1px solid #26262c; vertical-align:baseline}
+  .lg th:last-child,.lg td:last-child{padding-right:0}
+  .lg .num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .led th{position:sticky; top:0; z-index:1}
+  .led .d{color:var(--dim); font-weight:700; white-space:nowrap; font-variant-numeric:tabular-nums}
+  .led .v{color:var(--ink)}
+  .led .p,.led .i{color:#cfccc4}
+  .led .w{white-space:nowrap}
+  .led .w.q{color:var(--dim)}
+  .led .cur{display:inline-block; width:2.5em; margin-left:.45em; text-align:left; font-size:12px; color:var(--dim)}
+  .led .none{color:#77746b}
+  .totwrap{overflow-x:auto}
+  .tot th:first-child,.tot td:first-child{text-align:left}
+  .tot th{text-align:right}
+  .tot td{color:#cfccc4}
+  .tot .all td{color:var(--ink); font-weight:700}
+  .tot .blank{color:#55534c}
   @media (max-width:820px){
     #app{flex-direction:column}
+    .lg{padding:18px 16px 44px}
+    /* each ledger row becomes a small stacked card */
+    .led thead{display:none}
+    .led,.led tbody{display:block}
+    .led tr{display:grid; grid-template-columns:auto 1fr auto; column-gap:10px; row-gap:2px; padding:10px 0;
+      border-bottom:1px solid #26262c; grid-template-areas:"v v a" "i i w" "d p p"}
+    .led td{display:block; padding:0; border:0}
+    .led .d{grid-area:d; font-size:12px; font-weight:600}
+    .led .p{grid-area:p; font-size:12px; color:var(--dim)}
+    .led .v{grid-area:v; font-weight:600}
+    .led .i{grid-area:i; font-size:12.5px}
+    .led .w{grid-area:w; text-align:right; font-size:12.5px}
+    .led .num{grid-area:a}
     #side{width:100%; max-height:38%}
     #legend{left:16px; max-width:calc(100% - 32px)}
     /* keep the buttons and card on the map, below the stacked sidebar */
@@ -81,6 +130,11 @@
 </style>
 </head>
 <body>
+<div id="tabs" role="tablist" aria-label="Trip #1">
+  <button id="tab-map" role="tab" aria-controls="pane-map" aria-selected="true">Map</button>
+  <button id="tab-ledger" role="tab" aria-controls="pane-ledger" aria-selected="false">Ledger</button>
+</div>
+<div id="pane-map" role="tabpanel" aria-labelledby="tab-map">
 <div id="app">
   <nav id="side">
     <h1>Trip #1</h1>
@@ -92,6 +146,20 @@
 <div id="views"></div>
 <div id="legend"></div>
 <div id="card"><span class="close">&times;</span><div id="cardbody"></div></div>
+</div>
+<div id="pane-ledger" role="tabpanel" aria-labelledby="tab-ledger">
+  <div class="lg">
+    <h1>Trip #1 ledger</h1>
+    <p class="sub">What the bookings and statements show for 8&ndash;22 January 2026. Date is the day it happened, not the day it was paid. Amounts stay in the currency charged and are not converted. A question mark in Who paid means likely but not proven. A dash means the cost is not recorded. Restaurants, fuel and entry tickets paid on the road are mostly missing.</p>
+    <h2>Totals</h2>
+    <div class="totwrap"><table class="tot" id="totals"></table></div>
+    <h2>Every expense</h2>
+    <table class="led">
+      <thead><tr><th>Date</th><th>Place</th><th>Vendor</th><th>Who paid</th><th>Item</th><th class="num">Amount</th></tr></thead>
+      <tbody id="ledger"></tbody>
+    </table>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -268,7 +336,10 @@ const fitAll = ()=> map.fitBounds(VIEWS.all.b, {padding:[24,24]});
 // re-fitting on every resize until the user first touches the map.
 let userTouched = false;
 map.getContainer().addEventListener('pointerdown', ()=>{ userTouched = true; }, {once:true});
-const refit = ()=>{ map.invalidateSize(); if (!userTouched) fitAll(); };
+const refit = ()=>{
+  if (!map.getContainer().offsetWidth) return;   // on the Ledger tab
+  map.invalidateSize(); if (!userTouched) fitAll();
+};
 window.addEventListener('load', ()=>{ refit(); setTimeout(refit, 250); });
 new ResizeObserver(refit).observe(document.getElementById('map'));
 
@@ -403,6 +474,84 @@ function openDay(day){
 }
 
 fitAll();
+
+// ── Ledger (copied from the Craft page, 1 Nov 2026; its Notes column stays there) ─
+// [January date, place, vendor, who paid, item, amount, currency]; null = not recorded.
+const LEDGER = [
+ [8, "New York → Madrid", "Booking.com (Air Europa UX92)", "Edward", "Flights for two, plus XCover insurance", 901.05, "USD"],
+ [8, "New York → Madrid", "Air Europa upgrade bid", "?", "Extra legroom bid for two", null, null],
+ [9, "Madrid", "Hotel Mediodía", "Edward", "1 night", 125.40, "EUR"],
+ [9, "Madrid", "My Top Tour (Reina Sofía)", "Edward", "Museum entry, 3:00 PM", 28.09, "USD"],
+ [10, "Madrid → Granada", "Renfe", "Holly?", "AVE for two", 132.30, "EUR"],
+ [10, "Granada", "Hotel Casa Capitel Nazarí", "Holly?", "2 nights with breakfast", 191.77, "EUR"],
+ [11, "Granada", "Alhambra", "Edward", "Two tickets, Nasrid Palaces at 3:00 PM", 43.27, "EUR"],
+ [12, "Granada → Algeciras", "ALSA", "Holly?", "Bus for two", 71.96, "EUR"],
+ [12, "Algeciras → Gibraltar", "Cab", "?", "Cab to the hotel", null, null],
+ [12, "Gibraltar", "Bristol Hotel", "Holly?", "1 night, bed and breakfast", 105.45, "GBP"],
+ [13, "Gibraltar → Tarifa", "Cab", "?", "Cab to the ferry", null, null],
+ [13, "Tarifa → Tangier", "Baleària", "Holly?", "Ferry for two", 96.00, "EUR"],
+ [13, "Tangier → Marrakesh", "ONCF", "Holly?", "Two seats booked online", 809.14, "MAD"],
+ [13, "Tangier → Marrakesh", "ONCF refund", "Holly?", "Refund of both seats", -630.00, "MAD"],
+ [13, "Tangier", "ONCF, at the station", "?", "Couchette tickets, probably", null, null],
+ [14, "Marrakesh", "Riad & Spa Bahia Salam", "Edward", "1 night", 104.00, "EUR"],
+ [15, "Marrakesh", "Riad & Spa Bahia Salam", "Edward", "Charged at the riad, not itemised", 180.88, "USD"],
+ [15, "Marrakesh", "Hertz (STARC)", "Edward", "Dacia Duster, 4 days, prepaid part", 2402.68, "MAD"],
+ [15, "Marrakesh", "Hertz (STARC)", "Holly", "Balance at the counter", 620.42, "MAD"],
+ [15, "Dadès", "Kasbah Tizzarouine", "Edward", "1 night", 103.28, "EUR"],
+ [16, "Merzouga", "Moonlight Luxury Camp (Morocco Countryside Tours)", "Edward", "Camp bill: 1 night in a tent, plus extras?", 446.19, "USD"],
+ [17, "Zagora", "Zagora hotel", "?", "1 night", null, null],
+ [18, "Marrakesh → Casablanca", "ONCF", "Edward", "Two 1st class seats", 442.66, "MAD"],
+ [18, "Casablanca airport", "Pomme de Pain", "Edward", "Food at Terminal 2", 32.56, "USD"],
+ [19, "Casablanca → Cairo", "Trip.com (EgyptAir MS862)", "Holly", "Flights for two", 1191.80, "USD"],
+ [19, "Cairo airport → hostel", "Booking.com Rides", "Edward", "Airport taxi", 26.20, "EUR"],
+ [19, "Cairo", "Arabian Nights Hostel", "Edward", "2 nights with breakfast", 76.51, "USD"],
+ [19, "Zamalek, Cairo", "Social Specialty Coffee", "Edward", "Coffee", 8.56, "USD"],
+ [19, "Cairo", "Uber", "Holly", "Within Zamalek, 6:34 PM", 79.99, "EGP"],
+ [19, "Cairo", "Uber", "Holly", "Zamalek → hostel, 9:46 PM", 114.99, "EGP"],
+ [20, "Cairo → Giza", "Uber", "Holly", "To the Pyramids, 1:32 PM", 321.99, "EGP"],
+ [20, "US → Sydney", "Send My Bag (DHL)", "Edward", "Bag sent ahead", 216.26, "USD"],
+ [20, "Giza → Cairo", "Uber", "Holly", "To Zamalek, 9:44 PM", 389.94, "EGP"],
+ [20, "Cairo", "Uber", "Holly", "Zamalek → hostel, 10:37 PM", 319.99, "EGP"],
+ [21, "Cairo", "Uber", "Holly", "Hostel → airport, 10:21 AM", 500.06, "EGP"],
+ [21, "Online, from Cairo", "Australian ETA", "Edward", "Entry authority for both", 40.00, "AUD"],
+ [21, "Cairo → Doha", "Qatar Airways QR1304", "Holly", "Flights for two", 520.50, "USD"],
+ [21, "Doha → Sydney", "Travel Booking (Hopper), QR908", "Emma?", "Flights for two, Economy Comfort", 5513.86, "AUD"],
+ [21, "Doha airport", "Giraffe", "Edward", "Meal during the connection", 76.75, "USD"],
+ [21, "QR908", "Wi-Fi Onboard", "Edward", "Flight Wi-Fi", 10.00, "USD"],
+ [21, "US → Sydney", "Send My Bag (DHL)", "Edward", "Overweight charge, 17 lb over", 50.00, "USD"],
+ [22, "Sydney", "Uber", "Holly", "Airport → Darlinghurst, 8:45 PM", 79.61, "AUD"],
+ [22, "Darlinghurst, Sydney", "Airbnb", "Emma?", "6 nights, 22–28 Jan", 1052.92, "AUD"],
+];
+const esc = s=> String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const money = n=> n.toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2}).replace('-','−');
+document.getElementById('ledger').innerHTML = LEDGER.map(([d,place,vendor,who,item,amt,cur])=>`<tr>
+  <td class="d">${d} Jan</td><td class="p">${esc(place)}</td><td class="v">${esc(vendor)}</td>
+  <td class="w ${who.endsWith('?')?'q':''}">${esc(who)}</td><td class="i">${esc(item)}</td>
+  <td class="num">${amt===null ? '<span class="none">—</span>' : `${money(amt)}<span class="cur">${cur}</span>`}</td></tr>`).join('');
+// totals are summed from the rows, by payer and currency
+const CURS = ['USD','EUR','GBP','MAD','EGP','AUD'];
+const sumOf = test=> CURS.map(c=> LEDGER.filter(r=> r[6]===c && test(r)).reduce((a,r)=> a+r[5], 0));
+const totalRow = (label,test,cls='')=> `<tr class="${cls}"><td>${label}</td>${sumOf(test).map(v=>
+  `<td class="num ${Math.abs(v)<.005?'blank':''}">${Math.abs(v)<.005?'–':money(v)}</td>`).join('')}</tr>`;
+document.getElementById('totals').innerHTML =
+  `<thead><tr><th>Who paid</th>${CURS.map(c=>`<th class="num">${c}</th>`).join('')}</tr></thead><tbody>`+
+  ['Edward','Holly','Holly?','Emma?'].map(w=> totalRow(w, r=> r[3]===w)).join('')+
+  totalRow('All rows', ()=>true, 'all')+'</tbody>';
+
+// ── Tabs (#ledger in the address opens the ledger) ──────────────────────────
+function showTab(name){
+  const ledger = name==='ledger';
+  document.getElementById('pane-map').style.display = ledger ? 'none' : '';
+  document.getElementById('pane-ledger').style.display = ledger ? 'block' : 'none';
+  document.getElementById('tab-map').setAttribute('aria-selected', String(!ledger));
+  document.getElementById('tab-ledger').setAttribute('aria-selected', String(ledger));
+  try { history.replaceState(null, '', ledger ? '#ledger' : location.pathname+location.search); } catch(e){}
+  if (!ledger) refit();
+}
+document.getElementById('tab-map').onclick = ()=> showTab('map');
+document.getElementById('tab-ledger').onclick = ()=> showTab('ledger');
+window.addEventListener('hashchange', ()=> showTab(location.hash==='#ledger' ? 'ledger' : 'map'));
+showTab(location.hash==='#ledger' ? 'ledger' : 'map');
 </script>
 </body>
 </html>
